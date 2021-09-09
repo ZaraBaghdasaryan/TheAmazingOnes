@@ -1,0 +1,343 @@
+﻿@page "/"
+
+@using Business.Classes;
+@using Common.Classes;
+@using Common.Interfaces;
+@using Common.Enum;
+
+
+@inject ActionPlanProcessor APP
+
+<h1>Daglig styrning</h1>
+
+<h4>Kalender</h4>
+<style type="text/css">
+    #tblParent tbody tr td {
+        width: 200px;
+        height: 200px;
+    }
+
+    #divParent {
+        position: relative;
+    }
+
+    #divModal {
+        z-index: 10;
+        position: absolute;
+        border: 1px solid #000000;
+        border-radius: 3px;
+        background-color: #ffffff;
+        left: 40%;
+        top: 20%;
+        width: 400px;
+        min-height: 300px;
+    }
+
+    .modalHeading {
+        text-align: center;
+        font-size: 50px;
+        text-decoration: underline;
+        margin-bottom: 36px;
+    }
+</style>
+
+
+@if (displayModal)
+{
+    <div id="divModal">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading modalHeading">Set Note</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>From Date : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" style="width:100%;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>To Date : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="date" style="width: 100%;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Note : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" placeholder="Type here..." />
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:10px;">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6" style="text-align:right">
+                        <button class="btn btn-success" style="float:left; margin-right:5px;">Save</button>
+                        <button class="btn btn-danger" @onclick="CloseModal" style="float:left;">Close</button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<select @onchange="LoadCalender">
+
+    @foreach (string monthName in monthNames)
+    {
+        <option>@monthName</option>
+    }
+
+</select>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            @for (var dayIndex = 0; dayIndex < days.Count(); dayIndex++)
+            {
+                <th>
+                    @days[dayIndex]
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (var weekIndex = 0; weekIndex < weeks.Count(); weekIndex++)
+        {
+            <tr>
+                @for (var dayIndex = 0; dayIndex < weeks[weekIndex].Dates.Count(); dayIndex++)
+                {
+                    var wIndex = weekIndex;
+                    var dIndex = dayIndex;
+
+                    <td @ondblclick="@(() => OpenModal(wIndex, dIndex))">
+                        @weeks[weekIndex].Dates[dayIndex].DateValue
+                        <br /><br />
+                        <label style="color:#c00; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Note</label>
+                        <br /><br />
+                        Cell Number : [@weekIndex, @dayIndex]
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+<h4>Handlingsplan</h4>
+
+@*Felmeddelande*@
+@if (error != string.Empty)
+{
+    <div class="row">
+        <div class="col-5 alert alert-danger" role="alert">
+            <strong>Error</strong> @error
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-10">
+        <table class="table table-hover" style="border:1px solid">
+            @*Ändra till egen css-fil*@
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Beskrivning</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Ansvarig</th>
+                    <th scope="col">Projekt</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Datum</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @*Ändra till egen css-fil*@
+                    <th scope="row"><input style="width:100%; height:31px;" placeholder="Beskrivning" @bind="description" /></th>
+                    <td><input style="height:31px;" placeholder="Kategori" @bind="category" /></td>
+                    <td><input style="height:31px;" placeholder="Ansvarig" @bind="accountable" /></td>
+                    <td><input style="height:31px;" placeholder="Projekt" @bind="project" /></td>
+                    <td>
+                        <select style="height:31px;" @bind="@selectedStatus">
+                            @foreach (var type in APP.ActionPointTypeStatuses)
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </td>
+                    @*Datepicker?*@
+                    <td><input style="height:31px;" placeholder="Datum" @bind="actiondate" /></td>
+                    <td><button class="btn btn-outline-success btn-sm" @onclick="AddAction">Skapa</button></td>
+                </tr>
+                @*Skriver ut varje handlingspunkt som vi skapat*@
+                @foreach (var pointOfAction in actionpoints)
+                {
+                    <tr>
+                        <th scope="row">@pointOfAction.Description</th>
+                        <th>@pointOfAction.Category</th>
+                        <th>@pointOfAction.Accountable</th>
+                        <th>@pointOfAction.Project</th>
+                        <th>
+                            @if (pointOfAction.Status == default)
+                            {
+                                <span href="#" class="badge badge-success">Skapad</span>
+                            }
+                            else if (pointOfAction.Status == ActionPointStatuses.Behandlas)
+                            {
+                                <span href="#" class="badge badge-primary">Behandlas</span>
+                            }
+                            else
+                            {
+                                <span href="#" class="badge badge-warning">Eskalerad</span>
+                            }
+
+                        </th>
+                        <th>@pointOfAction.ActionDate.ToShortDateString()</th>
+                        <th></th>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@code{
+
+    bool displayModal = false;
+    List<string> monthNames = new List<string>();
+    List<string> days = new List<string>();
+    List<Week> weeks = new List<Week>();
+
+    DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+
+    protected override void OnInitialized()
+    {
+        monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
+        GenerateCalenderHead();
+        GenerateCalenderBody();
+
+        actionpoints = APP.GetActionPoints();
+    }
+
+    private void LoadCalender(ChangeEventArgs e)
+    {
+        var month = e.Value.ToString();
+        int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
+        startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
+        endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
+        GenerateCalenderHead();
+        GenerateCalenderBody();
+    }
+
+    private void GenerateCalenderHead()
+    {
+        var day1 = new List<string>();
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            day1.Add(dt.ToString("dddd"));
+        }
+        days = day1.Distinct().ToList();
+    }
+
+    private void GenerateCalenderBody()
+    {
+        weeks = new List<Week>();
+
+        int flag = 0;
+        Week week = new Week();
+        List<DayEvent> dates = new List<DayEvent>();
+        var totalDays = (int)(endDate - startDate).TotalDays;
+        int countdays = 0;
+
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            flag++;
+
+            dates.Add(new DayEvent()
+            {
+                DateValue = dt.ToString("dd-MMM-yyyy"),
+                DayName = dt.ToString("dddd")
+            });
+
+            if (flag == 7)
+            {
+                week = new Week();
+                week.Dates = dates;
+                weeks.Add(week);
+
+                dates = new List<DayEvent>();
+                flag = 0;
+            }
+
+            if (countdays == totalDays)
+            {
+                week = new Week();
+                week.Dates = dates;
+                weeks.Add(week);
+                break;
+            }
+
+            countdays++;
+
+        }
+    }
+    private void CloseModal()
+    {
+        displayModal = false;
+    }
+
+    private void OpenModal(int wIndex, int dIndex)
+    {
+        displayModal = true;
+    }
+
+    //Handlingsplan
+    #region Variabler
+    string error = string.Empty;
+    string description = string.Empty;
+    string accountable = string.Empty;
+    string category = default;
+    string project = string.Empty;
+    string selectedStatus = default;
+    DateTime actiondate = DateTime.Now;
+
+    IEnumerable<IPointOfAction> actionpoints;
+    #endregion
+
+    //Körs när sidan laddas
+    //protected override void OnInitialized()
+    //{
+    //    actionpoints = APP.GetActionPoints();
+    //}
+
+    void AddAction()
+    {
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            @*Tilldelar felmeddelandet*@
+            error = ex.Message;
+        }
+    }
+}
