@@ -7,6 +7,8 @@
 
 
 
+ 
+
 @inject ActionPlanProcessor APP
 
 <h1>Daglig styrning</h1>
@@ -55,7 +57,7 @@
                             <label>From Date : </label>
                         </div>
                         <div class="col-md-8">
-                            <input type="date" style="width:100%;" />
+                            <input type="date" @bind-value="@dayEvent.FromDate" style="width:100%;" />
                         </div>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
                         <label>To Date : </label>
                     </div>
                     <div class="col-md-8">
-                        <input type="date" style="width: 100%;" />
+                        <input type="date" @bind-value="@dayEvent.ToDate" style="width: 100%;" />
                     </div>
                 </div>
                 <div class="row">
@@ -72,19 +74,19 @@
                         <label>Note : </label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" placeholder="Type here..." />
+                        <input type="text" @bind-value="@dayEvent.Note" placeholder="Type here..." />
                     </div>
                 </div>
                 <div class="row" style="margin-bottom:10px;">
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6" style="text-align:right">
-                        <button class="btn btn-success" style="float:left; margin-right:5px;">Save</button>
+                        <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
                         <button class="btn btn-danger" @onclick="CloseModal" style="float:left;">Close</button>
 
                     </div>
 
-                </div>
+                </div> 
             </div>
 
         </div>
@@ -239,9 +241,26 @@
             List<string> monthNames = new List<string>();
             List<string> days = new List<string>();
             List<Week> weeks = new List<Week>();
+        DayEvent dayEvent = new DayEvent()
+        {
+            FromDate = DateTime.Now,
+            ToDate = DateTime.Now,
+            Note = ""
+        };
+
+    
+
+    bool displayModal = false;
+    List<string> monthNames = new List<string>();
+    List<string> days = new List<string>();
+    List<Week> weeks = new List<Week>();
 
             DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+    DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+    int selectedWeekIndex = -1;
+    int selectedDayIndex = -1;
 
     protected override void OnInitialized()
         {
@@ -275,6 +294,10 @@
         private void GenerateCalenderBody()
         {
             weeks = new List<Week>();
+    private void GenerateCalenderBody()
+    {
+        weeks = new List<Week>();
+        var dayEvents = dayEventService.GetEvents(startDate, endDate);
 
             int flag = 0;
             Week week = new Week();
@@ -291,6 +314,15 @@
                     DateValue = dt.ToString("dd-MMM-yyyy"),
                     DayName = dt.ToString("dddd")
                 });
+            var currentObject = dayEvents.Find(x=>x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
+
+            dates.Add(new DayEvent()
+            {
+                DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
+                DateValue = dt.ToString("dd-MMM-yyyy"),
+                DayName = dt.ToString("dddd"),
+                Note = currentObject == null ? "" : currentObject.Note
+            });
 
                 if (flag == 7)
                 {
@@ -317,11 +349,50 @@
         {
             displayModal = false;
         }
+            countdays++;
+
+        }
+    }
+    private void CloseModal()
+    {
+        ResetModal();
+    }
 
         private void OpenModal(int wIndex, int dIndex)
         {
             displayModal = true;
         }
+    private void OpenModal(int wIndex, int dIndex)
+    {
+        selectedWeekIndex = wIndex;
+        selectedDayIndex = dIndex;
+
+        var dayEventObj = dayEventService.GetEvent(Convert.ToDateTime(weeks[wIndex].Dates[dIndex].DateValue));
+        dayEvent = dayEventObj;
+
+        displayModal = true;
+
+    }
+
+    private void SaveNote()
+    {
+        dayEvent = dayEventService.SaveOrUpdate(dayEvent);
+        if(dayEvent.DayEventId > 0)
+        {
+            weeks[selectedWeekIndex].Dates[selectedDayIndex].DayEventId = dayEvent.DayEventId;
+            weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
+
+            ResetModal();
+
+        }
+    }
+
+    private void ResetModal()
+    {
+        displayModal = false;
+        selectedDayIndex = -1;
+        selectedWeekIndex = -1;
+    }
 
         //Handlingsplan
         #region Variabler

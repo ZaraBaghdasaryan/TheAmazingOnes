@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UI.IService;
+using UI.Service;
 
 namespace Daglig_Styrning.UI
 {
@@ -29,7 +31,7 @@ namespace Daglig_Styrning.UI
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            //När programmet startar kommer det skapas en instans av ActionPlanProcessor
+            services.AddScoped<IDayEventService, DayEventService>();
             services.AddSingleton<ActionPlanProcessor>();
         }
 
