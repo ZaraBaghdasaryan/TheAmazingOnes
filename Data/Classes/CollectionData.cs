@@ -43,6 +43,17 @@ namespace Data.Classes
             if (status == default) return _actionPoints;
             return _actionPoints.Where(a => a.Status.Equals(status));
         }
-        
+
+        public void AddAction(IPointOfAction pointOfAction)
+        {
+            try
+            {
+                _actionPoints.Add(new PointOfAction(NextActionPointId, pointOfAction.Description, pointOfAction.Accountable, pointOfAction.Category, pointOfAction.Project, pointOfAction.Status, pointOfAction.ActionDate));
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

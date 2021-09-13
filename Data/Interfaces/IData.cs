@@ -15,6 +15,10 @@ namespace Data.Interfaces
 
         IEnumerable<PointOfAction> GetActionPointsByStatus(ActionPointStatuses status = default);
 
+        int NextActionPointId { get; }
+
+        void AddAction(IPointOfAction pointOfAction);
+
         //Default interface method
         public string[] ActionPointTypeStatuses => Enum.GetNames(typeof(ActionPointStatuses));
     }

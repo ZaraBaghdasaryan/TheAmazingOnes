@@ -28,6 +28,11 @@ namespace Business.Classes
             
         }
 
+        public void AddAction(string description, string accountable, string category, string project, ActionPointStatuses status, DateTime actiondate)
+        {
+            _db.AddAction(new PointOfAction(_db.NextActionPointId, description, accountable, category, project, status, actiondate));
+        }
+
         public string[] ActionPointTypeStatuses => _db.ActionPointTypeStatuses;
     }
 }

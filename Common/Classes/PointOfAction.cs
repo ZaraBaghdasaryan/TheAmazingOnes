@@ -10,12 +10,12 @@ namespace Common.Classes
     {
         //Med bara get (inga set) så kan vi tilldela ett värde en gång från construktorn, men kan inte tilldela värden efter det
         public int Id { get; }
-        public string Description { get; }
-        public string Category {get;}
-        public string Accountable { get; }
-        public string Project { get; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+        public string Accountable { get; set; }
+        public string Project { get; set; }
         public ActionPointStatuses Status { get; set; }
-        public DateTime ActionDate { get; }
+        public DateTime ActionDate { get; set; }
 
         public PointOfAction(int id, string description, string category, string accountable, string project, ActionPointStatuses status, DateTime actionDate)
         {

@@ -6,6 +6,7 @@
 @using Common.Enum;
 
 
+
 @inject ActionPlanProcessor APP
 
 <h1>Daglig styrning</h1>
@@ -154,6 +155,7 @@
             @*Ändra till egen css-fil*@
             <thead class="thead-light">
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">Beskrivning</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Ansvarig</th>
@@ -166,7 +168,8 @@
             <tbody>
                 <tr>
                     @*Ändra till egen css-fil*@
-                    <th scope="row"><input style="width:100%; height:31px;" placeholder="Beskrivning" @bind="description" /></th>
+                    <th scope="row"></th>
+                    <td><input style="height:31px;" placeholder="Beskrivning" @bind="description" /></td>
                     <td><input style="height:31px;" placeholder="Kategori" @bind="category" /></td>
                     <td><input style="height:31px;" placeholder="Ansvarig" @bind="accountable" /></td>
                     <td><input style="height:31px;" placeholder="Projekt" @bind="project" /></td>
@@ -185,33 +188,45 @@
                 @*Skriver ut varje handlingspunkt som vi skapat*@
                 @foreach (var pointOfAction in actionpoints)
                 {
-                    <tr>
-                        <th scope="row">@pointOfAction.Description</th>
-                        <th>@pointOfAction.Category</th>
-                        <th>@pointOfAction.Accountable</th>
-                        <th>@pointOfAction.Project</th>
-                        <th>
-                            @if (pointOfAction.Status == default)
-                            {
-                                <span href="#" class="badge badge-success">Skapad</span>
-                            }
-                            else if (pointOfAction.Status == ActionPointStatuses.Behandlas)
-                            {
-                                <span href="#" class="badge badge-primary">Behandlas</span>
-                            }
-                            else
-                            {
-                                <span href="#" class="badge badge-warning">Eskalerad</span>
-                            }
+            <tr>
+                <th scope="row"><input type="checkbox" id="checkbox"/></th>
+                <th>@pointOfAction.Description</th>
+                <th>@pointOfAction.Category</th>
+                <th>@pointOfAction.Accountable</th>
+                <th>@pointOfAction.Project</th>
+                <th>
+                    @if (pointOfAction.Status == default)
+                    {
+                        <span href="#" class="badge badge-success">Skapad</span>
+                    }
+                    else if (pointOfAction.Status == ActionPointStatuses.Behandlas)
+                    {
+                        <span href="#" class="badge badge-primary">Behandlas</span>
+                    }
+                    else
+                    {
+                        <span href="#" class="badge badge-warning">Eskalerad</span>
+                    }
 
-                        </th>
-                        <th>@pointOfAction.ActionDate.ToShortDateString()</th>
-                        <th></th>
+                </th>
+                <th>@pointOfAction.ActionDate.ToShortDateString()</th>
+                <th></th>
 
-                    </tr>
+            </tr>
+
 
                 }
             </tbody>
+            <tr class="thead-light">
+                <th scope="col"></th>
+                <th scope="col"><button class="btn btn-outline-info btn-sm" @onclick="ChangeStatus">Påbörja</button></th>
+                <th scope="col"><button class="btn btn-outline-primary btn-sm" @onclick="EscalateAction">Eskalera</button></th>
+                <th scope="col"><button class="btn btn-outline-secondary btn-sm" @onclick="FileAction">Arkivera</button></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"><button class="btn btn-outline-danger btn-sm" @onclick="EraseAction">Radera</button></th>
+            </tr>
         </table>
     </div>
 </div>
@@ -220,107 +235,111 @@
 
 @code{
 
-    bool displayModal = false;
-    List<string> monthNames = new List<string>();
-    List<string> days = new List<string>();
-    List<Week> weeks = new List<Week>();
+            bool displayModal = false;
+            List<string> monthNames = new List<string>();
+            List<string> days = new List<string>();
+            List<Week> weeks = new List<Week>();
 
-    DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-    DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+            DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
 
     protected override void OnInitialized()
-    {
-        monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
-        GenerateCalenderHead();
-        GenerateCalenderBody();
-
-        actionpoints = APP.GetActionPoints();
-    }
-
-    private void LoadCalender(ChangeEventArgs e)
-    {
-        var month = e.Value.ToString();
-        int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
-        startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
-        endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
-        GenerateCalenderHead();
-        GenerateCalenderBody();
-    }
-
-    private void GenerateCalenderHead()
-    {
-        var day1 = new List<string>();
-        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
         {
-            day1.Add(dt.ToString("dddd"));
+            monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
+            GenerateCalenderHead();
+            GenerateCalenderBody();
+
+            actionpoints = APP.GetActionPoints();
         }
-        days = day1.Distinct().ToList();
-    }
 
-    private void GenerateCalenderBody()
-    {
-        weeks = new List<Week>();
-
-        int flag = 0;
-        Week week = new Week();
-        List<DayEvent> dates = new List<DayEvent>();
-        var totalDays = (int)(endDate - startDate).TotalDays;
-        int countdays = 0;
-
-        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        private void LoadCalender(ChangeEventArgs e)
         {
-            flag++;
-
-            dates.Add(new DayEvent()
-            {
-                DateValue = dt.ToString("dd-MMM-yyyy"),
-                DayName = dt.ToString("dddd")
-            });
-
-            if (flag == 7)
-            {
-                week = new Week();
-                week.Dates = dates;
-                weeks.Add(week);
-
-                dates = new List<DayEvent>();
-                flag = 0;
-            }
-
-            if (countdays == totalDays)
-            {
-                week = new Week();
-                week.Dates = dates;
-                weeks.Add(week);
-                break;
-            }
-
-            countdays++;
-
+            var month = e.Value.ToString();
+            int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
+            startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
+            endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
+            GenerateCalenderHead();
+            GenerateCalenderBody();
         }
-    }
-    private void CloseModal()
-    {
-        displayModal = false;
-    }
 
-    private void OpenModal(int wIndex, int dIndex)
-    {
-        displayModal = true;
-    }
+        private void GenerateCalenderHead()
+        {
+            var day1 = new List<string>();
+            for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+            {
+                day1.Add(dt.ToString("dddd"));
+            }
+            days = day1.Distinct().ToList();
+        }
 
-    //Handlingsplan
-    #region Variabler
-    string error = string.Empty;
-    string description = string.Empty;
-    string accountable = string.Empty;
-    string category = default;
-    string project = string.Empty;
-    string selectedStatus = default;
-    DateTime actiondate = DateTime.Now;
+        private void GenerateCalenderBody()
+        {
+            weeks = new List<Week>();
 
-    IEnumerable<IPointOfAction> actionpoints;
-    #endregion
+            int flag = 0;
+            Week week = new Week();
+            List<DayEvent> dates = new List<DayEvent>();
+            var totalDays = (int)(endDate - startDate).TotalDays;
+            int countdays = 0;
+
+            for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+            {
+                flag++;
+
+                dates.Add(new DayEvent()
+                {
+                    DateValue = dt.ToString("dd-MMM-yyyy"),
+                    DayName = dt.ToString("dddd")
+                });
+
+                if (flag == 7)
+                {
+                    week = new Week();
+                    week.Dates = dates;
+                    weeks.Add(week);
+
+                    dates = new List<DayEvent>();
+                    flag = 0;
+                }
+
+                if (countdays == totalDays)
+                {
+                    week = new Week();
+                    week.Dates = dates;
+                    weeks.Add(week);
+                    break;
+                }
+
+                countdays++;
+            }
+        }
+        private void CloseModal()
+        {
+            displayModal = false;
+        }
+
+        private void OpenModal(int wIndex, int dIndex)
+        {
+            displayModal = true;
+        }
+
+        //Handlingsplan
+        #region Variabler
+        string error = string.Empty;
+        string description = string.Empty;
+        string accountable = string.Empty;
+        string category = default;
+        string project = string.Empty;
+        string selectedStatus = default;
+        DateTime actiondate = DateTime.Now;
+
+        IEnumerable<IPointOfAction> actionpoints;
+
+        //checkbox
+        //public bool boolValue {get; set;}
+        // use @bind="" där den är
+        
+        #endregion
 
     //Körs när sidan laddas
     //protected override void OnInitialized()
@@ -332,6 +351,93 @@
     {
         try
         {
+            if (description == string.Empty || accountable == string.Empty || category == string.Empty || project == string.Empty)
+                throw new AggregateException("Kunde inte lägga till handlingspunkt.");
+
+            else
+            {
+                //Console.WriteLine("Hej hej");
+                APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actiondate);
+
+                actionpoints = APP.GetActionPoints();
+
+                description = string.Empty;
+                accountable = string.Empty;
+                category = default;
+                project = string.Empty;
+                selectedStatus = default;
+                actiondate = DateTime.Now;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            @*Tilldelar felmeddelandet*@
+        error = ex.Message;
+    }
+}
+
+//void ToggleCheckbox()
+//{
+//    if(boolValue)
+//    {
+//        val = "unchecked";
+//    }
+//    else
+//    {
+//        val = "checked";
+//    }
+
+//    boolValue = !boolValue;
+//}
+
+void ChangeStatus()
+{
+    try
+    {
+
+
+    }
+    catch (Exception ex)
+    {
+            @*Tilldelar felmeddelandet*@
+            error = ex.Message;
+        }
+    }
+
+    void EscalateAction()
+    {
+        try
+        {
+
+
+        }
+        catch (Exception ex)
+        {
+            @*Tilldelar felmeddelandet*@
+            error = ex.Message;
+        }
+    }
+
+    void FileAction()
+    {
+        try
+        {
+
+
+        }
+        catch (Exception ex)
+        {
+            @*Tilldelar felmeddelandet*@
+            error = ex.Message;
+        }
+    }
+
+    void EraseAction()
+    {
+        try
+        {
+
 
         }
         catch (Exception ex)
