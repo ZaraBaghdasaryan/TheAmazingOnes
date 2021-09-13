@@ -4,6 +4,7 @@
 @using Common.Classes;
 @using Common.Interfaces;
 @using Common.Enum;
+@using Microsoft.Extensions.Configuration;
 
 @inject ActionPlanProcessor APP
 
@@ -80,7 +81,7 @@
                         <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
                         <button class="btn btn-danger" @onclick="CloseModal" style="float:left;">Close</button>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -178,29 +179,29 @@
                 @*Skriver ut varje handlingspunkt som vi skapat*@
                 @foreach (var pointOfAction in actionpoints)
                 {
-            <tr>
-                <th scope="row"><input type="checkbox" id="checkbox"/></th>
-                <th>@pointOfAction.Description</th>
-                <th>@pointOfAction.Category</th>
-                <th>@pointOfAction.Accountable</th>
-                <th>@pointOfAction.Project</th>
-                <th>
-                    @if (pointOfAction.Status == default)
-                    {
-                        <span href="#" class="badge badge-success">Skapad</span>
-                    }
-                    else if (pointOfAction.Status == ActionPointStatuses.Behandlas)
-                    {
-                        <span href="#" class="badge badge-primary">Behandlas</span>
-                    }
-                    else
-                    {
-                        <span href="#" class="badge badge-warning">Eskalerad</span>
-                    }
-                </th>
-                <th>@pointOfAction.ActionDate.ToShortDateString()</th>
-                <th></th>
-            </tr>
+                    <tr>
+                        <th scope="row"><input type="checkbox" id="checkbox" /></th>
+                        <th>@pointOfAction.Description</th>
+                        <th>@pointOfAction.Category</th>
+                        <th>@pointOfAction.Accountable</th>
+                        <th>@pointOfAction.Project</th>
+                        <th>
+                            @if (pointOfAction.Status == default)
+                            {
+                                <span href="#" class="badge badge-success">Skapad</span>
+                            }
+                            else if (pointOfAction.Status == ActionPointStatuses.Behandlas)
+                            {
+                                <span href="#" class="badge badge-primary">Behandlas</span>
+                            }
+                            else
+                            {
+                                <span href="#" class="badge badge-warning">Eskalerad</span>
+                            }
+                        </th>
+                        <th>@pointOfAction.ActionDate.ToShortDateString()</th>
+                        <th></th>
+                    </tr>
                 }
             </tbody>
             <tr class="thead-light">
@@ -273,60 +274,60 @@
 
     private void GenerateCalenderBody()
     {
-            weeks = new List<Week>();
-            var dayEvents = dayEventService.GetEvents(startDate, endDate);
+        weeks = new List<Week>();
+        var dayEvents = dayEventService.GetEvents(startDate, endDate);
 
-            int flag = 0;
-            Week week = new Week();
-            List<DayEvent> dates = new List<DayEvent>();
-            var totalDays = (int)(endDate - startDate).TotalDays;
-            int countdays = 0;
+        int flag = 0;
+        Week week = new Week();
+        List<DayEvent> dates = new List<DayEvent>();
+        var totalDays = (int)(endDate - startDate).TotalDays;
+        int countdays = 0;
 
-            for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            flag++;
+
+            dates.Add(new DayEvent()
             {
-                flag++;
+                DateValue = dt.ToString("dd-MMM-yyyy"),
+                DayName = dt.ToString("dddd")
+            });
+            var currentObject = dayEvents.Find(x => x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
 
-                dates.Add(new DayEvent()
-                {
-                    DateValue = dt.ToString("dd-MMM-yyyy"),
-                    DayName = dt.ToString("dddd")
-                });
-                var currentObject = dayEvents.Find(x=>x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
+            dates.Add(new DayEvent()
+            {
+                DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
+                DateValue = dt.ToString("dd-MMM-yyyy"),
+                DayName = dt.ToString("dddd"),
+                Note = currentObject == null ? "" : currentObject.Note
+            });
 
-                dates.Add(new DayEvent()
-                {
-                    DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
-                    DateValue = dt.ToString("dd-MMM-yyyy"),
-                    DayName = dt.ToString("dddd"),
-                    Note = currentObject == null ? "" : currentObject.Note
-                });
+            if (flag == 7)
+            {
+                week = new Week();
+                week.Dates = dates;
+                weeks.Add(week);
 
-                if (flag == 7)
-                {
-                    week = new Week();
-                    week.Dates = dates;
-                    weeks.Add(week);
-
-                    dates = new List<DayEvent>();
-                    flag = 0;
-                }
-
-                if (countdays == totalDays)
-                {
-                    week = new Week();
-                    week.Dates = dates;
-                    weeks.Add(week);
-                    break;
-                }
-
-                countdays++;
+                dates = new List<DayEvent>();
+                flag = 0;
             }
 
+            if (countdays == totalDays)
+            {
+                week = new Week();
+                week.Dates = dates;
+                weeks.Add(week);
+                break;
+            }
+
+            countdays++;
         }
-        private void CloseModal()
-        {
-            displayModal = false;
-        }
+
+    }
+    private void CloseModal()
+    {
+        displayModal = false;
+    }
 
     //Vilken stämmer?
     //private void CloseModal()
@@ -349,7 +350,7 @@
     private void SaveNote()
     {
         dayEvent = dayEventService.SaveOrUpdate(dayEvent);
-        if(dayEvent.DayEventId > 0)
+        if (dayEvent.DayEventId > 0)
         {
             weeks[selectedWeekIndex].Dates[selectedDayIndex].DayEventId = dayEvent.DayEventId;
             weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
@@ -410,33 +411,33 @@
         catch (Exception ex)
         {
             @*Tilldelar felmeddelandet*@
-        error = ex.Message;
+            error = ex.Message;
+        }
     }
-}
 
-//void ToggleCheckbox()
-//{
-//    if(boolValue)
-//    {
-//        val = "unchecked";
-//    }
-//    else
-//    {
-//        val = "checked";
-//    }
+    //void ToggleCheckbox()
+    //{
+    //    if(boolValue)
+    //    {
+    //        val = "unchecked";
+    //    }
+    //    else
+    //    {
+    //        val = "checked";
+    //    }
 
-//    boolValue = !boolValue;
-//}
+    //    boolValue = !boolValue;
+    //}
 
-void ChangeStatus()
-{
-    try
+    void ChangeStatus()
     {
+        try
+        {
 
 
-    }
-    catch (Exception ex)
-    {
+        }
+        catch (Exception ex)
+        {
             @*Tilldelar felmeddelandet*@
             error = ex.Message;
         }
