@@ -50,3 +50,10 @@ C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debu
 C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\obj\Debug\netcoreapp3.1\UI.Views.pdb
 C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\obj\Debug\netcoreapp3.1\UI.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\obj\Debug\netcoreapp3.1\UI.csproj.CopyComplete
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

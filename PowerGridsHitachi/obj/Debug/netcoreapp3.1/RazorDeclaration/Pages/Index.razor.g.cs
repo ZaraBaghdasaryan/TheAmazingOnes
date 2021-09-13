@@ -75,13 +75,6 @@ using UI.Data;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\Pages\Index.razor"
-using UI.Shared;
-
-#line default
-#line hidden
-#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -93,12 +86,22 @@ using UI.Shared;
 #nullable restore
 #line 130 "C:\Users\Admin\OneDrive\Desktop\LIA\PowerGridsHitachi\PowerGridsHitachi\Pages\Index.razor"
       
+
+    DayEvent dayEvent = new DayEvent()
+    {
+        FromDate = DateTime.Now,
+        ToDate = DateTime.Now,
+        Note = ""
+    };
+
     bool displayModal = false;
     List<string> monthNames = new List<string>();
     List<string> days = new List<string>();
     List<Week> weeks = new List<Week>();
     DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
     DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+    int selectedWeekIndex = -1;
+    int selectedDayIndex = -1;
 
     protected override void OnInitialized()
     {
@@ -130,6 +133,7 @@ using UI.Shared;
     private void GenerateCalenderBody()
     {
         weeks = new List<Week>();
+        var dayEvents = dayEventService.GetEvents(startDate, endDate);
 
         int flag = 0;
         Week week = new Week();
@@ -141,10 +145,14 @@ using UI.Shared;
         {
             flag++;
 
+            var currentObject = dayEvents.Find(x=>x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
+
             dates.Add(new DayEvent()
             {
+                DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
                 DateValue = dt.ToString("dd-MMM-yyyy"),
-                DayName = dt.ToString("dddd")
+                DayName = dt.ToString("dddd"),
+                Note = currentObject == null ? "" : currentObject.Note
             });
 
             if (flag == 7)
@@ -171,17 +179,45 @@ using UI.Shared;
     }
     private void CloseModal()
     {
-        displayModal = false;
+        ResetModal();
     }
 
     private void OpenModal(int wIndex, int dIndex)
     {
+        selectedWeekIndex = wIndex;
+        selectedDayIndex = dIndex;
+
+        var dayEventObj = dayEventService.GetEvent(Convert.ToDateTime(weeks[wIndex].Dates[dIndex].DateValue));
+        dayEvent = dayEventObj;
+
         displayModal = true;
+
+    }
+
+    private void SaveNote()
+    {
+        dayEvent = dayEventService.SaveOrUpdate(dayEvent);
+        if(dayEvent.DayEventId > 0)
+        {
+            weeks[selectedWeekIndex].Dates[selectedDayIndex].DayEventId = dayEvent.DayEventId;
+            weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
+
+            ResetModal();
+
+        }
+    }
+
+    private void ResetModal()
+    {
+        displayModal = false;
+        selectedDayIndex = -1;
+        selectedWeekIndex = -1;
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UI.IService.IDayEventService dayEventService { get; set; }
     }
 }
 #pragma warning restore 1591
