@@ -5,10 +5,6 @@
 @using Common.Interfaces;
 @using Common.Enum;
 
-
-
- 
-
 @inject ActionPlanProcessor APP
 
 <h1>Daglig styrning</h1>
@@ -83,24 +79,18 @@
                     <div class="col-md-6" style="text-align:right">
                         <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
                         <button class="btn btn-danger" @onclick="CloseModal" style="float:left;">Close</button>
-
                     </div>
-
                 </div> 
             </div>
-
         </div>
-
     </div>
 }
 
 <select @onchange="LoadCalender">
-
     @foreach (string monthName in monthNames)
     {
         <option>@monthName</option>
     }
-
 </select>
 
 <table class="table table-bordered table-striped">
@@ -135,8 +125,6 @@
         }
     </tbody>
 </table>
-
-
 
 
 <h4>Handlingsplan</h4>
@@ -209,14 +197,10 @@
                     {
                         <span href="#" class="badge badge-warning">Eskalerad</span>
                     }
-
                 </th>
                 <th>@pointOfAction.ActionDate.ToShortDateString()</th>
                 <th></th>
-
             </tr>
-
-
                 }
             </tbody>
             <tr class="thead-light">
@@ -237,67 +221,60 @@
 
 @code{
 
-            bool displayModal = false;
-            List<string> monthNames = new List<string>();
-            List<string> days = new List<string>();
-            List<Week> weeks = new List<Week>();
-        DayEvent dayEvent = new DayEvent()
-        {
-            FromDate = DateTime.Now,
-            ToDate = DateTime.Now,
-            Note = ""
-        };
+    //Kalender
 
-    
-
+    #region Variabler
     bool displayModal = false;
     List<string> monthNames = new List<string>();
     List<string> days = new List<string>();
     List<Week> weeks = new List<Week>();
-
-            DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
     DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
     DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
     int selectedWeekIndex = -1;
     int selectedDayIndex = -1;
+    #endregion
 
+    DayEvent dayEvent = new DayEvent()
+    {
+        FromDate = DateTime.Now,
+        ToDate = DateTime.Now,
+        Note = ""
+    };
+
+    //Körs när sidan laddas
     protected override void OnInitialized()
-        {
-            monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
-            GenerateCalenderHead();
-            GenerateCalenderBody();
+    {
+        monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
+        GenerateCalenderHead();
+        GenerateCalenderBody();
 
-            actionpoints = APP.GetActionPoints();
+        actionpoints = APP.GetActionPoints();
+    }
+
+    private void LoadCalender(ChangeEventArgs e)
+    {
+        var month = e.Value.ToString();
+        int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
+        startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
+        endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
+        GenerateCalenderHead();
+        GenerateCalenderBody();
+    }
+
+    private void GenerateCalenderHead()
+    {
+        var day1 = new List<string>();
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            day1.Add(dt.ToString("dddd"));
         }
+        days = day1.Distinct().ToList();
+    }
 
-        private void LoadCalender(ChangeEventArgs e)
-        {
-            var month = e.Value.ToString();
-            int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
-            startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
-            endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
-            GenerateCalenderHead();
-            GenerateCalenderBody();
-        }
-
-        private void GenerateCalenderHead()
-        {
-            var day1 = new List<string>();
-            for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
-            {
-                day1.Add(dt.ToString("dddd"));
-            }
-            days = day1.Distinct().ToList();
-        }
-
-        private void GenerateCalenderBody()
-        {
-            weeks = new List<Week>();
     private void GenerateCalenderBody()
     {
-        weeks = new List<Week>();
-        var dayEvents = dayEventService.GetEvents(startDate, endDate);
+            weeks = new List<Week>();
+            var dayEvents = dayEventService.GetEvents(startDate, endDate);
 
             int flag = 0;
             Week week = new Week();
@@ -314,15 +291,15 @@
                     DateValue = dt.ToString("dd-MMM-yyyy"),
                     DayName = dt.ToString("dddd")
                 });
-            var currentObject = dayEvents.Find(x=>x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
+                var currentObject = dayEvents.Find(x=>x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
 
-            dates.Add(new DayEvent()
-            {
-                DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
-                DateValue = dt.ToString("dd-MMM-yyyy"),
-                DayName = dt.ToString("dddd"),
-                Note = currentObject == null ? "" : currentObject.Note
-            });
+                dates.Add(new DayEvent()
+                {
+                    DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
+                    DateValue = dt.ToString("dd-MMM-yyyy"),
+                    DayName = dt.ToString("dddd"),
+                    Note = currentObject == null ? "" : currentObject.Note
+                });
 
                 if (flag == 7)
                 {
@@ -344,24 +321,19 @@
 
                 countdays++;
             }
+
         }
         private void CloseModal()
         {
             displayModal = false;
         }
-            countdays++;
 
-        }
-    }
-    private void CloseModal()
-    {
-        ResetModal();
-    }
+    //Vilken stämmer?
+    //private void CloseModal()
+    //{
+    //    ResetModal();
+    //}
 
-        private void OpenModal(int wIndex, int dIndex)
-        {
-            displayModal = true;
-        }
     private void OpenModal(int wIndex, int dIndex)
     {
         selectedWeekIndex = wIndex;
@@ -394,29 +366,23 @@
         selectedWeekIndex = -1;
     }
 
-        //Handlingsplan
-        #region Variabler
-        string error = string.Empty;
-        string description = string.Empty;
-        string accountable = string.Empty;
-        string category = default;
-        string project = string.Empty;
-        string selectedStatus = default;
-        DateTime actiondate = DateTime.Now;
+    //Handlingsplan
+    #region Variabler
+    string error = string.Empty;
+    string description = string.Empty;
+    string accountable = string.Empty;
+    string category = default;
+    string project = string.Empty;
+    string selectedStatus = default;
+    DateTime actiondate = DateTime.Now;
 
-        IEnumerable<IPointOfAction> actionpoints;
+    IEnumerable<IPointOfAction> actionpoints;
 
-        //checkbox
-        //public bool boolValue {get; set;}
-        // use @bind="" där den är
-        
-        #endregion
+    //checkbox
+    //public bool boolValue {get; set;}
+    // use @bind="" där den är
 
-    //Körs när sidan laddas
-    //protected override void OnInitialized()
-    //{
-    //    actionpoints = APP.GetActionPoints();
-    //}
+    #endregion
 
     void AddAction()
     {

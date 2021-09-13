@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using UI.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Classes;
 
-namespace UI.IService
+namespace Common.Interfaces
 {
     public interface IDayEventService
     {

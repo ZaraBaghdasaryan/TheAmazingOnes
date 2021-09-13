@@ -1,15 +1,14 @@
-﻿using Dapper;
-using Microsoft.Extensions.Configuration;
+﻿using Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
-using UI.Data;
-using UI.IService;
+using Microsoft.Extensions.Configuration;
+using System.Data.SqlClient;
+using Common.Enum;
+using Dapper;
 
-namespace UI.Service
+namespace Common.Classes
 {
     public class DayEventService : IDayEventService
     {
