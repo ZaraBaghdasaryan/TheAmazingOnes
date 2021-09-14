@@ -8,7 +8,11 @@ namespace Common.Classes
 {
     public class AddPointOfAction : IAddPointOfAction
     {
+        
         //Behövs Id för denna? Räcker med id för PointOfAction?
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id { get; }
         public int PointOfActionId { get; }
 

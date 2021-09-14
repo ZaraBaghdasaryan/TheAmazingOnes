@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Tests\\Tests.csproj": {}
+    "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Business\\Business.csproj": {
+    "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Business\\Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Business\\Business.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Business\\Business.csproj",
         "projectName": "Business",
-        "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Business\\Business.csproj",
-        "packagesPath": "C:\\Users\\lina_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Business\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Business\\Business.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Business\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lina_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -34,11 +32,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj": {
-                "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj"
+              "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj"
               },
-              "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj"
+              "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj"
               }
             }
           }
@@ -71,24 +69,22 @@
         }
       }
     },
-    "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj": {
+    "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj",
-        "packagesPath": "C:\\Users\\lina_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lina_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -145,24 +141,22 @@
         }
       }
     },
-    "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj": {
+    "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj",
-        "packagesPath": "C:\\Users\\lina_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lina_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -175,8 +169,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj": {
-                "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj"
+              "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj"
               }
             }
           }
@@ -209,24 +203,22 @@
         }
       }
     },
-    "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Tests\\Tests.csproj": {
+    "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Tests\\Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Tests\\Tests.csproj",
-        "packagesPath": "C:\\Users\\lina_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Tests\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Tests\\Tests.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lina_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -239,14 +231,14 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Business\\Business.csproj": {
-                "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Business\\Business.csproj"
+              "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Business\\Business.csproj": {
+                "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Business\\Business.csproj"
               },
-              "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj": {
-                "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Common\\Common.csproj"
+              "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Common\\Common.csproj"
               },
-              "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\lina_\\source\\repos\\HitachiPowerGrids\\Data\\Data.csproj"
+              "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\Admin\\OneDrive\\Desktop\\LIA\\PowerGridsHitachi\\Data\\Data.csproj"
               }
             }
           }

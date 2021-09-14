@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using Common.Enum;
 using Dapper;
+using System.Configuration;
 
 namespace Common.Classes
 {
@@ -83,7 +84,7 @@ namespace Common.Classes
         public List<DayEvent> GetEvents(DateTime fromDate, DateTime toDate)
         {
             _oDayEvents = new List<DayEvent>();
-            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
+            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalendar")))
             {
                 if (con.State == ConnectionState.Closed) con.Open();
 
