@@ -322,18 +322,12 @@
 
             countdays++;
         }
-
     }
+
     private void CloseModal()
     {
-        displayModal = false;
+        ResetModal();
     }
-
-    //Vilken stämmer?
-    //private void CloseModal()
-    //{
-    //    ResetModal();
-    //}
 
     private void OpenModal(int wIndex, int dIndex)
     {
@@ -344,7 +338,6 @@
         dayEvent = dayEventObj;
 
         displayModal = true;
-
     }
 
     private void SaveNote()
@@ -356,7 +349,6 @@
             weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
 
             ResetModal();
-
         }
     }
 
