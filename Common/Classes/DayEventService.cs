@@ -30,7 +30,7 @@ namespace Common.Classes
                     DayEventId = id
                 };
 
-                using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
+                using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
                 {
                     if (con.State == ConnectionState.Closed) con.Open();
 
@@ -55,7 +55,7 @@ namespace Common.Classes
         public DayEvent GetEvent(DateTime eventDate)
         {
             _oDayEvent = new DayEvent();
-            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
+            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
                 if (con.State == ConnectionState.Closed) con.Open();
 
@@ -84,9 +84,9 @@ namespace Common.Classes
         public List<DayEvent> GetEvents(DateTime fromDate, DateTime toDate)
         {
             _oDayEvents = new List<DayEvent>();
-            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalendar")))
+            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
-                if (con.State == ConnectionState.Closed) con.Open();
+                con.Open();
 
                 string sql = string.Format(@"SELECT * FROM DayEvent WHERE EventDate BETWEEN '{0}' AND '{1}'", fromDate.ToString("dd-MMM-yyyy"), toDate.ToString("dd-MMM-yyyy"));
 
@@ -108,7 +108,7 @@ namespace Common.Classes
                     {
                         int operationType = Convert.ToInt32(oDayEvent.DayEventId == 0 ? OperationType.Insert : OperationType.Update);
 
-                        using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
+                        using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
                         {
                             if (con.State == ConnectionState.Closed) con.Open();
 

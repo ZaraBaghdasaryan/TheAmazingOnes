@@ -4,13 +4,12 @@
 @using Common.Classes;
 @using Common.Interfaces;
 @using Common.Enum;
-@inject IDayEventService dayEventService;
-
-
-https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 @using Microsoft.Extensions.Configuration;
 
+@inject IDayEventService dayEventService;
 @inject ActionPlanProcessor APP
+
+@*https://github.com/TheAmazingOnes/HitachiPowerGrids.git*@
 
 <h1>Daglig styrning</h1>
 
@@ -390,7 +389,6 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 
             else
             {
-                //Console.WriteLine("Hej hej");
                 APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actiondate);
 
                 actionpoints = APP.GetActionPoints();
