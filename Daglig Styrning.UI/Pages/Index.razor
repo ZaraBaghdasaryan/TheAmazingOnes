@@ -6,10 +6,14 @@
 @using Common.Enum;
 @inject IDayEventService dayEventService;
 https://github.com/TheAmazingOnes/HitachiPowerGrids.git
-@using Microsoft.Extensions.Configuration;
 
-@inject ActionPlanProcessor APP
+https://github.com/TheAmazingOnes/HitachiPowerGrids.git
+https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 @*<h4>Kalender</h4>*@
+
+<h4>Kalender</h4>
+
+<h4>Kalender</h4>
 <style type="text/css">
     #tblParent tbody tr td {
         width: 200px;
@@ -334,9 +338,7 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 
             countdays++;
         }
-
     }
-
 
     private void CloseModal()
     {
@@ -352,7 +354,6 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
         dayEvent = dayEventObj;
 
         displayModal = true;
-
     }
 
     private void SaveNote()
@@ -364,7 +365,6 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
             weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
 
             ResetModal();
-
         }
     }
 
@@ -410,7 +410,6 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 
             else
             {
-                //Console.WriteLine("Hej hej");
                 APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actiondate);
 
                 actionpoints = APP.GetActionPoints();
