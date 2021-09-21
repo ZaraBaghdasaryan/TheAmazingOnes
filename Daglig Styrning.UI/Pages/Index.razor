@@ -5,44 +5,35 @@
 @using Common.Interfaces;
 @using Common.Enum;
 @using Microsoft.Extensions.Configuration;
+@using UI.Models; 
 
 @inject IDayEventService dayEventService;
 @inject ActionPlanProcessor APP
+@inject IDataAccess _data
+@inject IConfiguration _config
 
 @*https://github.com/TheAmazingOnes/HitachiPowerGrids.git*@
 
 <h1>Daglig styrning</h1>
 
-<h4>Kalender</h4>
-<style type="text/css">
-    #tblParent tbody tr td {
-        width: 200px;
-        height: 200px;
-    }
+<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+<button class="btn btn-warning" @onclick="UpdateData">Update</button>
+<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
 
-    #divParent {
-        position: relative;
+@if (pointsOfAction == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var p in pointsOfAction)
+    {
+        <p>
+            @p.Description @p.Accountable
+        </p>
     }
+}
 
-    #divModal {
-        z-index: 10;
-        position: absolute;
-        border: 1px solid #000000;
-        border-radius: 3px;
-        background-color: #ffffff;
-        left: 40%;
-        top: 20%;
-        width: 400px;
-        min-height: 300px;
-    }
-
-    .modalHeading {
-        text-align: center;
-        font-size: 50px;
-        text-decoration: underline;
-        margin-bottom: 36px;
-    }
-</style>
 
 
 @if (displayModal)
@@ -226,7 +217,6 @@
 @code{
 
     //Kalender
-
     #region Variabler
     bool displayModal = false;
     List<string> monthNames = new List<string>();
@@ -238,12 +228,53 @@
     int selectedDayIndex = -1;
     #endregion
 
-    DayEvent dayEvent = new DayEvent()
+    //Handlingsplan
+    #region Variabler
+    string error = string.Empty;
+    string description = string.Empty;
+    string accountable = string.Empty;
+    string category = default;
+    string project = string.Empty;
+    string selectedStatus = default;
+    DateTime actiondate = DateTime.Now;
+
+    //checkbox
+    //public bool boolValue {get; set;}
+    // use @bind="" där den är
+    #endregion
+
+    //DataAccess
+    #region Variabler
+    List<PointsOfActionModel> pointsOfAction;
+    #endregion
+
+    private void InsertData()
     {
-        FromDate = DateTime.Now,
-        ToDate = DateTime.Now,
-        Note = ""
-    };
+        string sql = "insert into pointsOfAction (Description, Category, Accountable, Project, Status) values (@Description, @Category, @Accountable, @Project, @Status)";
+
+        _data.SaveData(sql, new { Description = "Test 123", Category = "S", Accountable = "Lina", Project = "X", Status = "Skapad" }, _config.GetConnectionString("DefaultConnection"));
+
+        OnInitialized();
+    }
+
+    private void UpdateData()
+    {
+        string sql = "update pointsOfAction set Description = @Description where Accountable = @Accountable";
+
+        _data.SaveData(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DefaultConnection"));
+
+        OnInitialized();
+    }
+
+    private void DeleteData()
+    {
+        string sql = "delete from pointsOfAction where Accountable = @Accountable";
+
+        _data.SaveData(sql, new { Accountable = "Lina" }, _config.GetConnectionString("DefaultConnection"));
+
+        OnInitialized();
+    }
+
 
     //Körs när sidan laddas
     protected override void OnInitialized()
@@ -253,7 +284,19 @@
         GenerateCalenderBody();
 
         actionpoints = APP.GetActionPoints();
+
+        string sql = "select * from PointsOfAction";
+
+        pointsOfAction = _data.LoadData<PointsOfActionModel, dynamic>(sql, new { }, _config.GetConnectionString("DefaultConnection"));
     }
+
+    //Kalender
+    DayEvent dayEvent = new DayEvent()
+    {
+        FromDate = DateTime.Now,
+        ToDate = DateTime.Now,
+        Note = ""
+    };
 
     private void LoadCalender(ChangeEventArgs e)
     {
@@ -363,22 +406,7 @@
     }
 
     //Handlingsplan
-    #region Variabler
-    string error = string.Empty;
-    string description = string.Empty;
-    string accountable = string.Empty;
-    string category = default;
-    string project = string.Empty;
-    string selectedStatus = default;
-    DateTime actiondate = DateTime.Now;
-
     IEnumerable<IPointOfAction> actionpoints;
-
-    //checkbox
-    //public bool boolValue {get; set;}
-    // use @bind="" där den är
-
-    #endregion
 
     void AddAction()
     {
@@ -409,19 +437,6 @@
         }
     }
 
-    //void ToggleCheckbox()
-    //{
-    //    if(boolValue)
-    //    {
-    //        val = "unchecked";
-    //    }
-    //    else
-    //    {
-    //        val = "checked";
-    //    }
-
-    //    boolValue = !boolValue;
-    //}
 
     void ChangeStatus()
     {
@@ -475,7 +490,9 @@
         catch (Exception ex)
         {
             @*Tilldelar felmeddelandet*@
-            error = ex.Message;
-        }
+        error = ex.Message;
     }
+}
+
+
 }

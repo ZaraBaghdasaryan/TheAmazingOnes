@@ -86,7 +86,7 @@ namespace Common.Classes
             _oDayEvents = new List<DayEvent>();
             using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DefaultConnection")))
             {
-                con.Open();
+                if (con.State == ConnectionState.Closed) con.Open();
 
                 string sql = string.Format(@"SELECT * FROM DayEvent WHERE EventDate BETWEEN '{0}' AND '{1}'", fromDate.ToString("dd-MMM-yyyy"), toDate.ToString("dd-MMM-yyyy"));
 

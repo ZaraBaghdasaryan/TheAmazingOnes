@@ -1,7 +1,6 @@
 using Business.Classes;
 using Common.Classes;
 using Common.Interfaces;
-using Daglig_Styrning.UI.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 
 namespace Daglig_Styrning.UI
 {
@@ -30,6 +30,7 @@ namespace Daglig_Styrning.UI
             services.AddScoped<IDayEventService, DayEventService>();
 
             services.AddSingleton<ActionPlanProcessor>();
+            services.AddSingleton<IDataAccess, DataAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
