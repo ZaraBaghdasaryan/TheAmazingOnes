@@ -25,19 +25,19 @@ namespace Common.Classes
             string message = "";
             try
             {
-                _oDayEvent = new DayEvent()
+                
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@DayEventId", id);
+
+                using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DagligStyrningDB")))
                 {
-                    DayEventId = id
-                };
+                    con.Open();
+                    string q = "";
 
-                using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
-                {
-                    if (con.State == ConnectionState.Closed) con.Open();
 
-                    var oDayEvents = con.Query<DayEvent>("SP_DayEvent",
-                        this.SetParameters(_oDayEvent, (int)OperationType.Delete),
-                        commandType: CommandType.StoredProcedure);
-
+                    q = @"DELETE FROM   DayEvent
+                            WHERE DayEventId = @DayEventId";
+                    con.Execute(q, parameters);
                     message = "Deleted";
 
                 }
@@ -55,7 +55,7 @@ namespace Common.Classes
         public DayEvent GetEvent(DateTime eventDate)
         {
             _oDayEvent = new DayEvent();
-            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
+            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DagligStyrningDB")))
             {
                 if (con.State == ConnectionState.Closed) con.Open();
 
@@ -84,9 +84,12 @@ namespace Common.Classes
         public List<DayEvent> GetEvents(DateTime fromDate, DateTime toDate)
         {
             _oDayEvents = new List<DayEvent>();
-            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalendar")))
+            using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DagligStyrningDB")))
             {
-                if (con.State == ConnectionState.Closed) con.Open();
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
 
                 string sql = string.Format(@"SELECT * FROM DayEvent WHERE EventDate BETWEEN '{0}' AND '{1}'", fromDate.ToString("dd-MMM-yyyy"), toDate.ToString("dd-MMM-yyyy"));
 
@@ -102,50 +105,81 @@ namespace Common.Classes
         }
 
         public DayEvent SaveOrUpdate(DayEvent oDayEvent)
+        {
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Note", oDayEvent.Note);
+                parameters.Add("@EventDate", oDayEvent.EventDate);
+                parameters.Add("@DayEventId", oDayEvent.DayEventId);
+
+
+                using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DagligStyrningDB")))
                 {
-                    _oDayEvent = new DayEvent();
-                    try
+                    con.Open();
+                    string q = "";
+
+                    if (oDayEvent.DayEventId == 0)
                     {
-                        int operationType = Convert.ToInt32(oDayEvent.DayEventId == 0 ? OperationType.Insert : OperationType.Update);
+                        q = @"
+                        INSERT 
+                        INTO   DayEvent(Note, EventDate)
+                        VALUES (@Note,@EventDate); SELECT SCOPE_IDENTITY() ";
 
-                        using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("BlazorCalender")))
-                        {
-                            if (con.State == ConnectionState.Closed) con.Open();
-
-                            var oDayEvents = con.Query<DayEvent>("SP_DayEvent",
-                                this.SetParameters(oDayEvent, operationType),
-                                commandType: CommandType.StoredProcedure);
-
-                            if (oDayEvents != null && oDayEvents.Count() > 0)
-                            {
-                                _oDayEvent = oDayEvents.FirstOrDefault();
-                            }
-                        }
                     }
 
-                    catch (Exception ex)
+                    else
                     {
-                        _oDayEvent.Message = ex.Message;
+                        q = @"UPDATE   DayEvent
+                            SET   Note = @Note, EventDate = @EventDate
+                            WHERE DayEventId = @DayEventId";
+
                     }
 
-                    return _oDayEvent;
+                    if (oDayEvent.DayEventId == 0)
+                    {
+                        oDayEvent.DayEventId = con.ExecuteScalar<int>(q, parameters);
+                    }
+
+                    else
+                    {
+                        con.Execute(q, parameters);
+                    }
+
+                    //var oDayEvents = con.Query<DayEvent>("SP_DayEvent",
+                    //    this.SetParameters(oDayEvent, operationType),
+                    //    commandType: CommandType.StoredProcedure);
+
+                    //if (oDayEvents != null && oDayEvents.Count() > 0)
+                    //{
+                    //    _oDayEvent = oDayEvents.FirstOrDefault();
+                    //}
                 }
+            }
+
+            catch (Exception ex)
+            {
+                oDayEvent.Message = ex.Message;
+            }
+
+            return oDayEvent;
+        }
 
         private DynamicParameters SetParameters(DayEvent oDayEvent, int operationType)
-                {
-                    DynamicParameters parametres = new DynamicParameters();
+        {
+            DynamicParameters parametres = new DynamicParameters();
 
-                    parametres.Add("@DayEventId", oDayEvent.DayEventId);
-                    parametres.Add("@Note", oDayEvent.Note);
-                    parametres.Add("@EventDate", oDayEvent.EventDate);
-                    parametres.Add("@OperationType", operationType);
+            parametres.Add("@DayEventId", oDayEvent.DayEventId);
+            parametres.Add("@Note", oDayEvent.Note);
+            parametres.Add("@EventDate", oDayEvent.EventDate);
+            parametres.Add("@OperationType", operationType);
 
-                    return parametres;
+            return parametres;
 
-                }
+        }
     }
 }
-    
+
 
 
 

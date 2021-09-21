@@ -5,16 +5,11 @@
 @using Common.Interfaces;
 @using Common.Enum;
 @inject IDayEventService dayEventService;
-
-
 https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 @using Microsoft.Extensions.Configuration;
 
 @inject ActionPlanProcessor APP
-
-<h1>Daglig styrning</h1>
-
-<h4>Kalender</h4>
+@*<h4>Kalender</h4>*@
 <style type="text/css">
     #tblParent tbody tr td {
         width: 200px;
@@ -44,6 +39,8 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
         margin-bottom: 36px;
     }
 </style>
+
+<h1>Daglig styrning</h1>
 
 
 @if (displayModal)
@@ -84,14 +81,21 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
                     <div class="col-md-6" style="text-align:right">
                         <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
                         <button class="btn btn-danger" @onclick="CloseModal" style="float:left;">Close</button>
+                        @if (dayEvent.DayEventId > 0)
+                        {
+                            <button class="btn btn-danger" @onclick="DeleteDayEvent" style="float:left;">Delete</button>
+
+                        }
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 }
 
-<select @onchange="LoadCalender">
+<select @onchange="LoadCalendar">
     @foreach (string monthName in monthNames)
     {
         <option>@monthName</option>
@@ -228,6 +232,13 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
 
     //Kalender
 
+    DayEvent dayEvent = new DayEvent()
+    {
+        FromDate = DateTime.Now,
+        ToDate = DateTime.Now,
+        Note = ""
+    };
+
     #region Variabler
     bool displayModal = false;
     List<string> monthNames = new List<string>();
@@ -239,34 +250,30 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
     int selectedDayIndex = -1;
     #endregion
 
-    DayEvent dayEvent = new DayEvent()
-    {
-        FromDate = DateTime.Now,
-        ToDate = DateTime.Now,
-        Note = ""
-    };
+
 
     //Körs när sidan laddas
     protected override void OnInitialized()
     {
         monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
-        GenerateCalenderHead();
-        GenerateCalenderBody();
+        GenerateCalendarHead();
+        GenerateCalendarBody();
 
         actionpoints = APP.GetActionPoints();
     }
 
-    private void LoadCalender(ChangeEventArgs e)
+    private void LoadCalendar(ChangeEventArgs e)
     {
         var month = e.Value.ToString();
         int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
         startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
         endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
-        GenerateCalenderHead();
-        GenerateCalenderBody();
+
+        GenerateCalendarHead();
+        GenerateCalendarBody();
     }
 
-    private void GenerateCalenderHead()
+    private void GenerateCalendarHead()
     {
         var day1 = new List<string>();
         for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
@@ -276,7 +283,7 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
         days = day1.Distinct().ToList();
     }
 
-    private void GenerateCalenderBody()
+    private void GenerateCalendarBody()
     {
         weeks = new List<Week>();
         var dayEvents = dayEventService.GetEvents(startDate, endDate);
@@ -291,11 +298,12 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
         {
             flag++;
 
-            dates.Add(new DayEvent()
-            {
-                DateValue = dt.ToString("dd-MMM-yyyy"),
-                DayName = dt.ToString("dddd")
-            });
+            @*dates.Add(new DayEvent()
+                {
+                    DateValue = dt.ToString("dd-MMM-yyyy"),
+                    DayName = dt.ToString("dddd")
+                });*@
+
             var currentObject = dayEvents.Find(x => x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
 
             dates.Add(new DayEvent()
@@ -358,6 +366,14 @@ https://github.com/TheAmazingOnes/HitachiPowerGrids.git
             ResetModal();
 
         }
+    }
+
+    private void DeleteDayEvent()
+    {
+        dayEventService.Delete(dayEvent.DayEventId);
+        ResetModal();
+
+
     }
 
     private void ResetModal()
