@@ -312,7 +312,7 @@ else
         Note = ""
     };
 
-    private void LoadCalender(ChangeEventArgs e)
+    private void LoadCalendar(ChangeEventArgs e)
     {
         var month = e.Value.ToString();
         int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
