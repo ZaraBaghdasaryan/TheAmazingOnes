@@ -5,37 +5,143 @@
 @using Common.Interfaces;
 @using Common.Enum;
 @using Microsoft.Extensions.Configuration;
-@using UI.Models; 
+@using UI.Models;
 
 @inject IDayEventService dayEventService;
 @inject ActionPlanProcessor APP
 @inject IDataAccess _data
 @inject IConfiguration _config
-
 @*https://github.com/TheAmazingOnes/HitachiPowerGrids.git*@
 
-<h1>Daglig styrning</h1>
+@*<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+    <button class="btn btn-warning" @onclick="UpdateData">Update</button>
+    <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
 
-<button class="btn btn-primary" @onclick="InsertData">Insert</button>
-<button class="btn btn-warning" @onclick="UpdateData">Update</button>
-<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
-
-@if (pointsOfAction == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @foreach (var p in pointsOfAction)
+    @if (pointsOfAction == null)
     {
-        <p>
-            @p.Description @p.Accountable @p.Status @p.ActionDate
-        </p>
+        <p><em>Loading...</em></p>
     }
-}
+    else
+    {
+        @foreach (var p in pointsOfAction)
+        {
+            <p>
+                @p.Description @p.Accountable @p.Status @p.ActionDate
+            </p>
+        }
+    }*@
 
 
-<h1>Daglig styrning</h1>
+<header>
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+        <!-- First centering the container horizontally then vertically-->
+        <div class="display-6 heading-font heading-font mt-5 mb-1">Daglig styrning</div>
+        <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
+            <img src="images/SQLMO whole.png">
+            <div class="d-none d-md-flex">
+                <!-- Adjusts visibility with the size of the screen-->
+
+            </div>
+        </nav>
+    </div>
+
+</header>
+<section id="categories" class="p-4 bg-white">
+    <!-- p-5 all around padding, instead padding bottom/top or right/left -->
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+        <!-- First centering the container horizontally then vertically-->
+
+        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Säkerhet
+            <img src="images/Säkerhet.PNG" class="rocket-size mr-2 p-1">
+        </label>
+
+        <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+            OK
+            <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-info">
+                Tillbud
+                <img src="images/PinTillbud.PNG" class="rocket-size mr-2 p-1">
+            </span>
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                Åtgärd krävs
+                <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+            </span>
+
+        </span>
+
+
+
+
+
+
+        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Kvalitet
+            <img src="images/Kvalitet.PNG" class="palette-size mr-2 p-1">
+        </label>
+        <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+            OK
+            <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                Kvalitetsproblem
+                <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+            </span>
+
+        </span>
+
+
+        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Leverans
+            <img src="images/Leverans.PNG" class="dinosaur-size mr-2 p-1">
+        </label>
+        <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+            OK
+            <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                Leveransproblem
+                <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+            </span>
+
+
+            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
+                Material
+                <img src="images/Material.PNG" class="books-size mr-2 p-1">
+            </label>
+            <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+                OK
+                <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+
+                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                    Materialproblem
+                    <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                </span>
+
+                <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
+                    Ordning och Reda
+                    <img src="images/OrdningOchReda.PNG" class="parchment-size mr-2 p-1">
+                </label>
+                <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+                    OK
+                    <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+
+                    <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                        Åtgärd krävs
+                        <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                    </span>
+
+                    <a href="aboutToFly.html" button class="btn btn-cozy rounded-100 heading-font display-8 text-white p-3 mt-3">
+                        Submit
+                    </a>
+                </span>
+            </span>
+        </span>
+    </div>
+
+</section>
+
+
 
 
 @if (displayModal)
@@ -194,13 +300,13 @@ else
                                 <span href="#" class="badge badge-success">Skapad</span>
                             }
                             @*else if (p.Status = "2")
-        {
-            <span href="#" class="badge badge-primary">Behandlas</span>
-        }
-        else
-        {
-            <span href="#" class="badge badge-warning">Eskalerad</span>
-        }*@
+                                {
+                                    <span href="#" class="badge badge-primary">Behandlas</span>
+                                }
+                                else
+                                {
+                                    <span href="#" class="badge badge-warning">Eskalerad</span>
+                                }*@
                             else
                             {
                                 <span href="#" class="badge badge-primary">Behandlas</span>
@@ -251,6 +357,7 @@ else
     string project = string.Empty;
     string selectedStatus = default;
     DateTime actionDate = DateTime.Now;
+    IEnumerable<IPointOfAction> actionpoints;
 
     //checkbox
     //public bool boolValue {get; set;}
@@ -430,7 +537,6 @@ else
     }
 
     //Handlingsplan
-    IEnumerable<IPointOfAction> actionpoints;
 
     void AddAction()
     {
@@ -527,9 +633,9 @@ else
         catch (Exception ex)
         {
             @*Tilldelar felmeddelandet*@
-        error = ex.Message;
+            error = ex.Message;
+        }
     }
-}
 
 
 }
