@@ -266,7 +266,7 @@ else
     {
         string sql = "insert into pointsOfAction (Description, Category, Accountable, Project, Status) values (@Description, @Category, @Accountable, @Project, @Status)";
 
-        _data.SaveData(sql, new { Description = "Test 123", Category = "S", Accountable = "Lina", Project = "X", Status = "Skapad" }, _config.GetConnectionString("DefaultConnection"));
+        _data.SaveData(sql, new { Description = "Test 123", Category = "S", Accountable = "Lina", Project = "X", Status = "Skapad" }, _config.GetConnectionString("DagligStyrningDB"));
 
         OnInitialized();
     }
@@ -275,7 +275,7 @@ else
     {
         string sql = "update pointsOfAction set Description = @Description where Accountable = @Accountable";
 
-        _data.SaveData(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DefaultConnection"));
+        _data.SaveData(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DagligStyrningDB"));
 
         OnInitialized();
     }
@@ -284,7 +284,7 @@ else
     {
         string sql = "delete from pointsOfAction where Accountable = @Accountable";
 
-        _data.SaveData(sql, new { Accountable = "Lina" }, _config.GetConnectionString("DefaultConnection"));
+        _data.SaveData(sql, new { Accountable = "Lina" }, _config.GetConnectionString("DagligStyrningDB"));
 
         OnInitialized();
     }
@@ -301,7 +301,7 @@ else
 
         string sql = "select * from PointsOfAction";
 
-        pointsOfAction = _data.LoadData<PointsOfActionModel, dynamic>(sql, new { }, _config.GetConnectionString("DefaultConnection"));
+        pointsOfAction = _data.LoadData<PointsOfActionModel, dynamic>(sql, new { }, _config.GetConnectionString("DagligStyrningDB"));
     }
 
     //Kalender
