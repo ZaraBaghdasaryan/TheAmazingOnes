@@ -1,0 +1,213 @@
+﻿/* Body */
+body {
+    font-family: "Open Sans", sans-serif !important;
+    background-color: #ffffff;
+}
+
+/* Background Colors */
+.bg-primary {
+    background-color: #a49dc2 !important;
+}
+
+.bg-secondary {
+    background-color: #6c757d !important;
+}
+
+.bg-success {
+    background-color: #b5d56a !important;
+}
+
+.bg-info {
+    background-color: #84bed6 !important;
+}
+
+.bg-warning {
+    background-color: #f0c24b !important;
+}
+
+.bg-danger {
+    background-color: #ea7066 !important;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.bg-dark {
+    background-color: #00233A !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.bg-transparent {
+    background-color: transparent !important;
+}
+
+.bg-blue {
+    background-color: #00a79d !important;
+}
+
+.bg-dark-blue {
+    background-color: #00233A !important;
+}
+
+.bg-dark-pink {
+    background-color: #ED8074 !important;
+}
+
+.bg-dark-green {
+    background-color: #1D7A8C !important;
+}
+
+
+
+/* Text Colors */
+
+.text-primary {
+    color: #a49dc2 !important;
+}
+
+.text-secondary {
+    color: #6c757d !important;
+}
+
+.text-success {
+    color: #29b473 !important;
+}
+
+.text-info {
+    color: #004aad !important;
+}
+
+.text-warning {
+    color: #f0c24b !important;
+}
+
+.text-danger {
+    color: #c92a2a !important;
+}
+
+.text-light {
+    color: #f8f9fa !important;
+}
+
+.text-dark {
+    color: #342a40 !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.text-blue {
+    color: #1f1347 !important;
+}
+
+.text-black {
+    color: #05030a !important;
+}
+
+/* Button Colors */
+
+.btn-primary {
+    background-color: #a49dc2 !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important;
+}
+
+.btn-success {
+    background-color: #b5d56a !important;
+}
+
+.btn-info {
+    background-color: #84bed6 !important;
+}
+
+.btn-warning {
+    background-color: #f0c24b !important;
+}
+
+.btn-danger {
+    background-color: #ea7066 !important;
+}
+
+.btn-light {
+    background-color: #f8f9fa !important;
+}
+
+.btn-dark {
+    background-color: #342a40 !important;
+}
+
+.btn-white {
+    background-color: #ffffff !important;
+}
+
+.btn-cozy {
+    background-color: #fc5658 !important;
+}
+/*Not a Bootstrap selector*/
+.btn-purple {
+    background-color: #7b089b !important;
+}
+
+.btn-grey {
+    background-color: #ada8ac !important;
+}
+
+
+
+
+
+/* Border Colors */
+
+.border-primary {
+    border-color: #a49dc2 !important;
+}
+
+.border-secondary {
+    border-color: #6c757d !important;
+}
+
+.border-success {
+    border-color: #b5d56a !important;
+}
+
+.border-info {
+    border-color: #84bed6 !important;
+}
+
+.border-warning {
+    border-color: #f0c24b !important;
+}
+
+.border-danger {
+    border-color: #ea7066 !important;
+}
+
+.border-light {
+    border-color: #f8f9fa !important;
+}
+
+.border-dark {
+    border-color: #342a40 !important;
+}
+
+.border-white {
+    border-color: #ffffff !important;
+}
+
+.border-cozy {
+    border-color: #ea77ad !important;
+}
+/*Not a Bootstrap selector*/
+
+/* Shadows*/
+
+.shadow {
+    box-shadow: 0.15rem 0.15rem 0 rgba(0, 0, 0, 0.1) !important
+}
