@@ -13,6 +13,7 @@ namespace Daglig_Styrning.UI.Models
         public string Accountable { get; set; }
         public string Project { get; set; }
         public string Status { get; set; }
+        public DateTime ActionDate { get; set; }
 
     }
 }

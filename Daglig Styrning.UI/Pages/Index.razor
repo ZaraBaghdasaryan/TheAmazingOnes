@@ -29,7 +29,7 @@ else
     @foreach (var p in pointsOfAction)
     {
         <p>
-            @p.Description @p.Accountable
+            @p.Description @p.Accountable @p.Status @p.ActionDate
         </p>
     }
 }
@@ -167,33 +167,38 @@ else
                         </select>
                     </td>
                     @*Datepicker?*@
-                    <td><input style="height:31px;" placeholder="Datum" @bind="actiondate" /></td>
+                    <td><input style="height:31px;" placeholder="Datum" @bind="actionDate" /></td>
                     <td><button class="btn btn-outline-success btn-sm" @onclick="AddAction">Skapa</button></td>
                 </tr>
                 @*Skriver ut varje handlingspunkt som vi skapat*@
-                @foreach (var pointOfAction in actionpoints)
+                @foreach (var p in pointsOfAction)
                 {
                     <tr>
                         <th scope="row"><input type="checkbox" id="checkbox" /></th>
-                        <th>@pointOfAction.Description</th>
-                        <th>@pointOfAction.Category</th>
-                        <th>@pointOfAction.Accountable</th>
-                        <th>@pointOfAction.Project</th>
+                        <th>@p.Description</th>
+                        <th>@p.Category</th>
+                        <th>@p.Accountable</th>
+                        <th>@p.Project</th>
                         <th>
-                            @if (pointOfAction.Status == default)
+                            @if (p.Status == "1")
                             {
                                 <span href="#" class="badge badge-success">Skapad</span>
                             }
-                            else if (pointOfAction.Status == ActionPointStatuses.Behandlas)
+                            @*else if (p.Status = "2")
+        {
+            <span href="#" class="badge badge-primary">Behandlas</span>
+        }
+        else
+        {
+            <span href="#" class="badge badge-warning">Eskalerad</span>
+        }*@
+                            else
                             {
                                 <span href="#" class="badge badge-primary">Behandlas</span>
                             }
-                            else
-                            {
-                                <span href="#" class="badge badge-warning">Eskalerad</span>
-                            }
+
                         </th>
-                        <th>@pointOfAction.ActionDate.ToShortDateString()</th>
+                        <th>@p.ActionDate.ToShortDateString()</th>
                         <th></th>
                     </tr>
                 }
@@ -236,7 +241,7 @@ else
     string category = default;
     string project = string.Empty;
     string selectedStatus = default;
-    DateTime actiondate = DateTime.Now;
+    DateTime actionDate = DateTime.Now;
 
     //checkbox
     //public bool boolValue {get; set;}
@@ -417,7 +422,7 @@ else
 
             else
             {
-                APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actiondate);
+                APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actionDate);
 
                 actionpoints = APP.GetActionPoints();
 
@@ -426,7 +431,7 @@ else
                 category = default;
                 project = string.Empty;
                 selectedStatus = default;
-                actiondate = DateTime.Now;
+                actionDate = DateTime.Now;
             }
 
         }
