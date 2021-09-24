@@ -7,7 +7,6 @@
 @using Microsoft.Extensions.Configuration;
 @using UI.Models;
 
-
 @inject IDayEventService dayEventService;
 @inject ActionPlanProcessor APP
 @inject IDataAccess _data
@@ -34,60 +33,104 @@
     }*@
 
 
-    <header>
-        <div class="d-flex flex-column justify-content-center align-items-center text-center">
-            <!-- First centering the container horizontally then vertically-->
-            <div class="display-6 heading-font heading-font mt-5 mb-1">Daglig styrning</div>
-            <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
-                <img src="images/SQLMO whole.png">
-                <div class="d-none d-md-flex">
-                    <!-- Adjusts visibility with the size of the screen-->
+<header>
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+        <div class="display-6 heading-font heading-font mt-5 mb-1">Daglig styrning</div>
+        <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
+            <img src="images/SQLMO whole.png">
+            <div class="d-none d-md-flex">
 
-                </div>
-            </nav>
             </div>
+        </nav>
+    </div>
 
-    </header>
-    <section id="categories" class="p-4 bg-white">
-        <!-- p-5 all around padding, instead padding bottom/top or right/left -->
-        <div class="d-flex flex-column justify-content-center align-items-center text-center">
-            <!-- First centering the container horizontally then vertically-->
+</header>
+<section id="categories" class="p-4 bg-white">
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
 
-            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-                Säkerhet
-                <img src="images/Säkerhet.PNG" class="rocket-size mr-2 p-1">
-            </label>
+        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Säkerhet
+            <img src="images/Säkerhet.PNG" class="icon-size mr-2 p-1">
+        </label>
+
+        @if (displayModal)
+        {<div id="divModal">
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading modalHeading">Set Note</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>From Date : </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="date" @bind-value="@dayEvent.FromDate" style="width:100%;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>To Date : </label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="date" @bind-value="@dayEvent.ToDate" style="width: 100%;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Note : </label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" @bind-value="@dayEvent.Note" placeholder="Type here..." />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6" style="text-align:right">
+                                <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
+                                <button class="btn btn-outline-info" @onclick="CloseModal" style="float:left;">Close</button>
+                                @if (dayEvent.DayEventId > 0)
+                                {
+                                    <button class="btn btn-danger" @onclick="DeleteDayEvent" style="float:left;">Delete</button>
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
 
             <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                 OK
-                <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+                <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
                 <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-info">
                     Tillbud
-                    <img src="images/PinTillbud.PNG" class="rocket-size mr-2 p-1">
+                    <img src="images/PinTillbud.PNG" class="icon-size mr-2 p-1">
                 </span>
                 <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
                     Åtgärd krävs
-                    <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                    <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                 </span>
 
             </span>
 
-
-
-
-
-
             <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
                 Kvalitet
-                <img src="images/Kvalitet.PNG" class="palette-size mr-2 p-1">
+                <img src="images/Kvalitet.PNG" class="icon-size mr-2 p-1">
             </label>
             <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                 OK
-                <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+                <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
 
                 <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
                     Kvalitetsproblem
-                    <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                    <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                 </span>
 
             </span>
@@ -95,56 +138,49 @@
 
             <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
                 Leverans
-                <img src="images/Leverans.PNG" class="dinosaur-size mr-2 p-1">
+                <img src="images/Leverans.PNG" class="icon-size mr-2 p-1">
             </label>
             <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                 OK
-                <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+                <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
 
                 <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
                     Leveransproblem
-                    <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                    <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                 </span>
 
 
                 <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
                     Material
-                    <img src="images/Material.PNG" class="books-size mr-2 p-1">
+                    <img src="images/Material.PNG" class="icon-size mr-2 p-1">
                 </label>
                 <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                     OK
-                    <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+                    <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
 
                     <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
                         Materialproblem
-                        <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                        <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                     </span>
 
                     <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
                         Ordning och Reda
-                        <img src="images/OrdningOchReda.PNG" class="parchment-size mr-2 p-1">
+                        <img src="images/OrdningOchReda.PNG" class="icon-size mr-2 p-1">
                     </label>
                     <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                         OK
-                        <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+                        <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
 
                         <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
                             Åtgärd krävs
-                            <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+                            <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                         </span>
-
-                        <a href="aboutToFly.html" button class="btn btn-cozy rounded-100 heading-font display-8 text-white p-3 mt-3">
-                            Submit
-                        </a>
-                    </span>
                     </span>
                 </span>
+            </span>
         </div>
 
-    </section>
-
-
-
+</section>
 
 <h1>Daglig styrning</h1>
 
@@ -185,16 +221,15 @@
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6" style="text-align:right">
-                        <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
-                        <button class="btn btn-danger" @onclick="CloseModal" style="float:left;">Close</button>
-                        @if (dayEvent.DayEventId > 0)
-                        {
-                            <button class="btn btn-danger" @onclick="DeleteDayEvent" style="float:left;">Delete</button>
+                        <button class="btn save-button save-button:hover" @onclick="SaveNote" style="float: left; margin-right: 5px; margin-top: 5px;">Save</button>
+                        <button class="btn close-button close-button:hover" @onclick="CloseModal" style="float: left; margin-top: 5px;">Close</button>
+                            @if (dayEvent.DayEventId > 0)
+                            {
+                                <button class="btn delete-button:hover delete-button" @onclick="DeleteDayEvent" style="float: left; margin-right: 150px; margin-top: 5px; ">Delete</button>
 
-                        }
-
+                            }
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -232,8 +267,8 @@
                         @weeks[weekIndex].Dates[dayIndex].DateValue
                         <br /><br />
                         <label style="color:#c00; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Note</label>
-                        <br /><br />
-                        Cell Number : [@weekIndex, @dayIndex]
+                        @*<br /><br />
+                            Cell Number : [@weekIndex, @dayIndex]*@
                     </td>
                 }
             </tr>
