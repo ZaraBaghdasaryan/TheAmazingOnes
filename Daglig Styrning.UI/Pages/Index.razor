@@ -154,7 +154,7 @@
                         <label>Säkerhet : </label>
                     </div>
                     <div class="col-md-8">
-                        <select style="height:31px;" @bind="@selectedSafetyOption">
+                        <select style="height:31px;" @bind="@dayEvent.Safety">
                             @foreach (var type in GetSafetyOptions())
                             {
                                 <option value=@type>@type</option>
@@ -162,58 +162,58 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Kvalitet : </label>
-                    </div>
-                    <div class="col-md-8">
-                        <select style="height:31px;" @bind="@selectedQualityOption">
-                            @foreach (var type in GetQualityOptions())
-                            {
-                                <option value=@type>@type</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Leverans : </label>
-                    </div>
-                    <div class="col-md-8">
-                        <select style="height:31px;" @bind="@selectedDeliveryOption">
-                            @foreach (var type in GetDeliveryOptions())
-                            {
-                                <option value=@type>@type</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Material : </label>
-                    </div>
-                    <div class="col-md-8">
-                        <select style="height:31px;" @bind="@selectedMaterialOption">
-                            @foreach (var type in GetMaterialOptions())
-                            {
-                                <option value=@type>@type</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Ordning & reda : </label>
-                    </div>
-                    <div class="col-md-8">
-                        <select style="height:31px;" @bind="@selectedTidyOption">
-                            @foreach (var type in GetTidyOptions())
-                            {
-                                <option value=@type>@type</option>
-                            }
-                        </select>
-                    </div>
-                </div>
+                @*<div class="row">
+            <div class="col-md-4">
+                <label>Kvalitet : </label>
+            </div>
+            <div class="col-md-8">
+                <select style="height:31px;" @bind="@selectedQualityOption">
+                    @foreach (var type in GetQualityOptions())
+                    {
+                        <option value=@type>@type</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Leverans : </label>
+            </div>
+            <div class="col-md-8">
+                <select style="height:31px;" @bind="@selectedDeliveryOption">
+                    @foreach (var type in GetDeliveryOptions())
+                    {
+                        <option value=@type>@type</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Material : </label>
+            </div>
+            <div class="col-md-8">
+                <select style="height:31px;" @bind="@selectedMaterialOption">
+                    @foreach (var type in GetMaterialOptions())
+                    {
+                        <option value=@type>@type</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Ordning & reda : </label>
+            </div>
+            <div class="col-md-8">
+                <select style="height:31px;" @bind="@selectedTidyOption">
+                    @foreach (var type in GetTidyOptions())
+                    {
+                        <option value=@type>@type</option>
+                    }
+                </select>
+            </div>
+        </div>*@
                 <div class="row">
                     <div class="col-md-4">
                         <label>Notering : </label>
@@ -268,13 +268,26 @@
                     var wIndex = weekIndex;
                     var dIndex = dayIndex;
 
-                    <td @ondblclick="@(() => OpenModal(wIndex, dIndex))">
-                        @weeks[weekIndex].Dates[dayIndex].DateValue
-                        <br /><br />
-                        <label style="color:#c00; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Note</label>
-                        @*<br /><br />
-                            Cell Number : [@weekIndex, @dayIndex]*@
-                    </td>
+                <td @onclick="@(() => OpenModal(wIndex, dIndex))">
+                    @weeks[weekIndex].Dates[dayIndex].DateValue
+                    <br /><br />
+                    @if (weeks[weekIndex].Dates[dayIndex].Safety == "OK")
+                    {
+                        //Få in ID
+                        <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:green; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
+                    }
+                    else if (weeks[weekIndex].Dates[dayIndex].Safety == "Tillbud")
+                    {
+                        <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:blue; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
+                    }
+                    else
+                    {
+                        <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
+                    }
+                    <br /><br />
+                    <label style="color:#c00; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Note</label>
+
+                </td>
                 }
             </tr>
         }
@@ -283,7 +296,6 @@
 
 
 <h4>Handlingsplan</h4>
-
 @*Felmeddelande*@
 @if (error != string.Empty)
 {
@@ -386,7 +398,6 @@
     DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
     int selectedWeekIndex = -1;
     int selectedDayIndex = -1;
-    string selectedSafetyOption = default;
     string selectedQualityOption = default;
     string selectedDeliveryOption = default;
     string selectedMaterialOption = default;
@@ -553,6 +564,7 @@ private void SaveNote()
         //Spara SQLMO här?
         weeks[selectedWeekIndex].Dates[selectedDayIndex].Safety = dayEvent.Safety;
 
+
         ResetModal();
     }
 }
@@ -562,7 +574,8 @@ private void DeleteDayEvent()
     dayEventService.Delete(dayEvent.DayEventId);
     ResetModal();
 
-
+    GenerateCalendarHead();
+    GenerateCalendarBody();
 }
 
 private void ResetModal()

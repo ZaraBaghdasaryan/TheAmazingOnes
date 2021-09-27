@@ -124,7 +124,7 @@ namespace Common.Classes
                     {
                         q = @"
                         INSERT 
-                        INTO   DayEvent(Note, EventDate)
+                        INTO   DayEvent(Note, EventDate, Safety)
                         VALUES (@Note,@EventDate,@Safety); SELECT SCOPE_IDENTITY() ";
 
                     }
