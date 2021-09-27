@@ -14,10 +14,9 @@
 @inject IConfiguration _config
 @*https://github.com/TheAmazingOnes/HitachiPowerGrids.git*@
 
-@*<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+    @*<button class="btn btn-primary" @onclick="InsertData">Insert</button>*@
     <button class="btn btn-warning" @onclick="UpdateData">Update</button>
     <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
-<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
     @if (pointsOfAction == null)
     {
         <p><em>Loading...</em></p>
@@ -30,123 +29,100 @@
                 @p.Description @p.Accountable @p.Status @p.ActionDate
             </p>
         }
-    }*@
+    }
 
 
-    <header>
-        <div class="d-flex flex-column justify-content-center align-items-center text-center">
-            <!-- First centering the container horizontally then vertically-->
-            <div class="display-6 heading-font heading-font mt-5 mb-1">Daglig styrning</div>
-            <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
-                <img src="images/SQLMO whole.png">
-                <div class="d-none d-md-flex">
-                    <!-- Adjusts visibility with the size of the screen-->
+<div class="d-flex flex-column justify-content-center align-items-center text-center">
+     @*First centering the container horizontally then vertically*@
+    <div class="display-6 heading-font heading-font mt-5 mb-1">Daglig styrning</div>
+    <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
+        <img src="images/SQLMO whole.png">
+        <div class="d-none d-md-flex">
+             @*Adjusts visibility with the size of the screen*@
+        </div>
+    </nav>
+</div>
 
-                </div>
-            </nav>
-            </div>
+<section id="categories" class="p-4 bg-white">
+     @*p-5 all around padding, instead padding bottom/top or right/left*@ 
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+         @*First centering the container horizontally then vertically*@
 
-    </header>
-    <section id="categories" class="p-4 bg-white">
-        <!-- p-5 all around padding, instead padding bottom/top or right/left -->
-        <div class="d-flex flex-column justify-content-center align-items-center text-center">
-            <!-- First centering the container horizontally then vertically-->
+        @*<label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Säkerhet
+            <img src="images/Säkerhet.PNG" class="rocket-size mr-2 p-1">
+        </label>
 
-            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-                Säkerhet
-                <img src="images/Säkerhet.PNG" class="rocket-size mr-2 p-1">
-            </label>
+        <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+            OK
+            <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-info">
+                Tillbud
+                <img src="images/PinTillbud.PNG" class="rocket-size mr-2 p-1">
+            </span>
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                Åtgärd krävs
+                <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+            </span>
+        </span>
 
-            <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                OK
-                <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-info">
-                    Tillbud
-                    <img src="images/PinTillbud.PNG" class="rocket-size mr-2 p-1">
-                </span>
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                    Åtgärd krävs
-                    <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
-                </span>
+        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Kvalitet
+            <img src="images/Kvalitet.PNG" class="palette-size mr-2 p-1">
+        </label>
+        <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+            OK
+            <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                Kvalitetsproblem
+                <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
+            </span>
+        </span>
 
+        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+            Leverans
+            <img src="images/Leverans.PNG" class="dinosaur-size mr-2 p-1">
+        </label>
+        <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
+            OK
+            <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
+            <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
+                Leveransproblem
+                <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
             </span>
 
-
-
-
-
-
-            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-                Kvalitet
-                <img src="images/Kvalitet.PNG" class="palette-size mr-2 p-1">
+            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
+                Material
+                <img src="images/Material.PNG" class="books-size mr-2 p-1">
             </label>
             <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                 OK
                 <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
-
                 <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                    Kvalitetsproblem
+                    Materialproblem
                     <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
                 </span>
-
-            </span>
-
-
-            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-                Leverans
-                <img src="images/Leverans.PNG" class="dinosaur-size mr-2 p-1">
-            </label>
-            <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                OK
-                <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
-
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                    Leveransproblem
-                    <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
-                </span>
-
 
                 <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
-                    Material
-                    <img src="images/Material.PNG" class="books-size mr-2 p-1">
+                    Ordning och Reda
+                    <img src="images/OrdningOchReda.PNG" class="parchment-size mr-2 p-1">
                 </label>
                 <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                     OK
                     <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
-
                     <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                        Materialproblem
+                        Åtgärd krävs
                         <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
                     </span>
 
-                    <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
-                        Ordning och Reda
-                        <img src="images/OrdningOchReda.PNG" class="parchment-size mr-2 p-1">
-                    </label>
-                    <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                        OK
-                        <img src="images/PinOk.PNG" class="rocket-size mr-0 p-1">
-
-                        <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                            Åtgärd krävs
-                            <img src="images/PinInteOk.PNG" class="rocket-size mr-2 p-1">
-                        </span>
-
-                        <a href="aboutToFly.html" button class="btn btn-cozy rounded-100 heading-font display-8 text-white p-3 mt-3">
-                            Submit
-                        </a>
-                    </span>
-                    </span>
+                    <a href="aboutToFly.html" button class="btn btn-cozy rounded-100 heading-font display-8 text-white p-3 mt-3">
+                        Submit
+                    </a>
                 </span>
-        </div>
-
-    </section>
-
-
-        </p>
-    }
-}
-
+            </span>
+        </span>*@
+    </div>
+</section>
 
 
 
@@ -281,7 +257,7 @@
                     <td><input style="height:31px;" placeholder="Projekt" @bind="project" /></td>
                     <td>
                         <select style="height:31px;" @bind="@selectedStatus">
-                            @foreach (var type in APP.ActionPointTypeStatuses)
+                            @foreach (var type in GetActionStatuses())
                             {
                                 <option value=@type>@type</option>
                             }
@@ -289,23 +265,23 @@
                     </td>
                     @*Datepicker?*@
                     <td><input style="height:31px;" placeholder="Datum" @bind="actionDate" /></td>
-                    <td><button class="btn btn-outline-success btn-sm" @onclick="AddAction">Skapa</button></td>
+                    <td><button class="btn btn-success btn-sm" @onclick="SaveAction">Skapa</button></td>
                 </tr>
                 @*Skriver ut varje handlingspunkt som vi skapat*@
                 @foreach (var p in pointsOfAction)
                 {
                     <tr>
-                        <th scope="row"><input type="checkbox" id="checkbox" /></th>
+                        <th scope="row"><input type="checkbox" id="checkBox1" @bind="checkboxStatus[p.PointOfActionId]" @onclick="() => ChangeCheckboxStatus(p.PointOfActionId)"/></th>
                         <th>@p.Description</th>
                         <th>@p.Category</th>
                         <th>@p.Accountable</th>
                         <th>@p.Project</th>
-                        <th>
-                            @if (p.Status == "1")
+                        <th>@p.Status
+                            @*@if (p.Status == "1")
                             {
                                 <span href="#" class="badge badge-success">Skapad</span>
                             }
-                            @*else if (p.Status = "2")
+                            else if (p.Status = "2")
                                 {
                                     <span href="#" class="badge badge-primary">Behandlas</span>
                                 }
@@ -313,11 +289,6 @@
                                 {
                                     <span href="#" class="badge badge-warning">Eskalerad</span>
                                 }*@
-                            else
-                            {
-                                <span href="#" class="badge badge-primary">Behandlas</span>
-                            }
-
                         </th>
                         <th>@p.ActionDate.ToShortDateString()</th>
                         <th></th>
@@ -326,13 +297,13 @@
             </tbody>
             <tr class="thead-light">
                 <th scope="col"></th>
-                <th scope="col"><button class="btn btn-outline-info btn-sm" @onclick="ChangeStatus">Påbörja</button></th>
-                <th scope="col"><button class="btn btn-outline-primary btn-sm" @onclick="EscalateAction">Eskalera</button></th>
-                <th scope="col"><button class="btn btn-outline-secondary btn-sm" @onclick="FileAction">Arkivera</button></th>
+                <th scope="col"><button class="btn btn-info btn-sm" @onclick="ChangeActionStatus">Påbörja</button></th>
+                <th scope="col"><button class="btn btn-primary btn-sm" @onclick="EscalateAction">Eskalera</button></th>
+                <th scope="col"><button class="btn btn-secondary btn-sm" @onclick="FileAction">Arkivera</button></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
-                <th scope="col"><button class="btn btn-outline-danger btn-sm" @onclick="EraseAction">Radera</button></th>
+                <th scope="col"><button class="btn btn-danger btn-sm" @onclick="DeleteAction">Radera</button></th>
             </tr>
         </table>
     </div>
@@ -361,13 +332,9 @@
     string accountable = string.Empty;
     string category = default;
     string project = string.Empty;
-    string selectedStatus = default;
+    string selectedStatus = "Skapad";
     DateTime actionDate = DateTime.Now;
     IEnumerable<IPointOfAction> actionpoints;
-
-    //checkbox
-    //public bool boolValue {get; set;}
-    // use @bind="" där den är
     #endregion
 
     //DataAccess
@@ -375,20 +342,20 @@
     List<PointsOfActionModel> pointsOfAction;
     #endregion
 
-    private void InsertData()
-    {
-        string sql = "insert into pointsOfAction (Description, Category, Accountable, Project, Status) values (@Description, @Category, @Accountable, @Project, @Status)";
+    //private void InsertData()
+    //{
+    //    string sql = "insert into pointsOfAction (Description, Category, Accountable, Project, Status) values (@Description, @Category, @Accountable, @Project, @Status)";
 
-        _data.SaveData(sql, new { Description = "Test 123", Category = "S", Accountable = "Lina", Project = "X", Status = "Skapad" }, _config.GetConnectionString("DagligStyrningDB"));
+    //    _data.SavePointOfAction(sql, new { Description = "Test 123", Category = "S", Accountable = "Lina", Project = "X", Status = "Skapad" }, _config.GetConnectionString("DagligStyrningDB"));
 
-        OnInitialized();
-    }
+    //    OnInitialized();
+    //}
 
     private void UpdateData()
     {
         string sql = "update pointsOfAction set Description = @Description where Accountable = @Accountable";
 
-        _data.SaveData(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DagligStyrningDB"));
+        _data.SavePointOfAction(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DagligStyrningDB"));
 
         OnInitialized();
     }
@@ -397,7 +364,7 @@
     {
         string sql = "delete from pointsOfAction where Accountable = @Accountable";
 
-        _data.SaveData(sql, new { Accountable = "Lina" }, _config.GetConnectionString("DagligStyrningDB"));
+        _data.SavePointOfAction(sql, new { Accountable = "Lina" }, _config.GetConnectionString("DagligStyrningDB"));
 
         OnInitialized();
     }
@@ -410,11 +377,8 @@
         GenerateCalendarHead();
         GenerateCalendarBody();
 
-        actionpoints = APP.GetActionPoints();
-
-        string sql = "select * from PointsOfAction";
-
-        pointsOfAction = _data.LoadData<PointsOfActionModel, dynamic>(sql, new { }, _config.GetConnectionString("DagligStyrningDB"));
+        GetPointsOfAction();
+        InitCheckboxStatus();
     }
 
     //Kalender
@@ -467,181 +431,252 @@
                     DayName = dt.ToString("dddd")
                 });*@
 
-            var currentObject = dayEvents.Find(x => x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
+        var currentObject = dayEvents.Find(x => x.EventDate.ToString("dd-MMM-yyyy") == dt.ToString("dd-MMM-yyyy"));
 
-            dates.Add(new DayEvent()
-            {
-                DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
-                DateValue = dt.ToString("dd-MMM-yyyy"),
-                DayName = dt.ToString("dddd"),
-                Note = currentObject == null ? "" : currentObject.Note
-            });
+        dates.Add(new DayEvent()
+        {
+            DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
+            DateValue = dt.ToString("dd-MMM-yyyy"),
+            DayName = dt.ToString("dddd"),
+            Note = currentObject == null ? "" : currentObject.Note
+        });
 
-            if (flag == 7)
-            {
-                week = new Week();
-                week.Dates = dates;
-                weeks.Add(week);
+        if (flag == 7)
+        {
+            week = new Week();
+            week.Dates = dates;
+            weeks.Add(week);
 
-                dates = new List<DayEvent>();
-                flag = 0;
-            }
-
-            if (countdays == totalDays)
-            {
-                week = new Week();
-                week.Dates = dates;
-                weeks.Add(week);
-                break;
-            }
-
-            countdays++;
+            dates = new List<DayEvent>();
+            flag = 0;
         }
-    }
 
-    private void CloseModal()
+        if (countdays == totalDays)
+        {
+            week = new Week();
+            week.Dates = dates;
+            weeks.Add(week);
+            break;
+        }
+
+        countdays++;
+    }
+}
+
+private void CloseModal()
+{
+    ResetModal();
+}
+
+private void OpenModal(int wIndex, int dIndex)
+{
+    selectedWeekIndex = wIndex;
+    selectedDayIndex = dIndex;
+
+    var dayEventObj = dayEventService.GetEvent(Convert.ToDateTime(weeks[wIndex].Dates[dIndex].DateValue));
+    dayEvent = dayEventObj;
+
+    displayModal = true;
+}
+
+private void SaveNote()
+{
+    dayEvent = dayEventService.SaveOrUpdate(dayEvent);
+    if (dayEvent.DayEventId > 0)
     {
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].DayEventId = dayEvent.DayEventId;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
+
         ResetModal();
     }
+}
 
-    private void OpenModal(int wIndex, int dIndex)
+private void DeleteDayEvent()
+{
+    dayEventService.Delete(dayEvent.DayEventId);
+    ResetModal();
+
+
+}
+
+private void ResetModal()
+{
+    displayModal = false;
+    selectedDayIndex = -1;
+    selectedWeekIndex = -1;
+}
+
+//Handlingsplan
+
+public List<string> GetActionStatuses()
+{
+    return Enum.GetNames(typeof(ActionPointStatuses)).ToList();
+}
+
+private void GetPointsOfAction()
+{
+    string sql = "select * from PointsOfAction";
+
+    pointsOfAction = _data.GetPointsOfAction<PointsOfActionModel, dynamic>(sql, new { }, _config.GetConnectionString("DagligStyrningDB"));
+}
+
+private void SaveAction()
+{
+    string sql = "insert into pointsOfAction (Description, Category, Accountable, Project, Status, ActionDate) values (@Description, @Category, @Accountable, @Project, @Status, @ActionDate)";
+
+    _data.SavePointOfAction(sql, new { Description = @description, Category = @category, Accountable = @accountable, Project = @project, Status = @selectedStatus, ActionDate = DateTime.Now}, _config.GetConnectionString("DagligStyrningDB"));
+
+    GetPointsOfAction();
+    InitCheckboxStatus();
+
+    description = string.Empty;
+    accountable = string.Empty;
+    category = default;
+    project = string.Empty;
+    selectedStatus = default;
+    actionDate = DateTime.Now;
+}
+
+//checkbox
+Dictionary<int, bool> checkboxStatus = new Dictionary<int, bool>();
+
+public void InitCheckboxStatus()
+{
+    //checkboxStatus.Add(13, false);
+    //checkboxStatus.Add(14, false);
+    //checkboxStatus.Add(17, false);
+    //checkboxStatus.Add(19, false);
+    //checkboxStatus.Add(21, false);
+    //checkboxStatus.Add(22, false);
+    //checkboxStatus.Add(23, false);
+    //checkboxStatus.Add(24, false);
+    //checkboxStatus.Add(25, false);
+
+    foreach (var p in pointsOfAction)
     {
-        selectedWeekIndex = wIndex;
-        selectedDayIndex = dIndex;
-
-        var dayEventObj = dayEventService.GetEvent(Convert.ToDateTime(weeks[wIndex].Dates[dIndex].DateValue));
-        dayEvent = dayEventObj;
-
-        displayModal = true;
+        checkboxStatus.Add(p.PointOfActionId, false);
     }
 
-    private void SaveNote()
+}
+
+public void ChangeCheckboxStatus(int s)
+{
+    if(checkboxStatus[s] == false)
     {
-        dayEvent = dayEventService.SaveOrUpdate(dayEvent);
-        if (dayEvent.DayEventId > 0)
-        {
-            weeks[selectedWeekIndex].Dates[selectedDayIndex].DayEventId = dayEvent.DayEventId;
-            weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
-
-            ResetModal();
-        }
+        checkboxStatus[s] = true;
     }
-
-    private void DeleteDayEvent()
+    else
     {
-        dayEventService.Delete(dayEvent.DayEventId);
-        ResetModal();
-
-
+        checkboxStatus[s] = false;
     }
+}
 
-    private void ResetModal()
+
+void ChangeActionStatus()
+{
+    try
     {
-        displayModal = false;
-        selectedDayIndex = -1;
-        selectedWeekIndex = -1;
+        //GetPointsOfAction();
+        //InitCheckboxStatus();
+
+
     }
-
-    //Handlingsplan
-
-    void AddAction()
+    catch (Exception ex)
     {
-        try
-        {
-            if (description == string.Empty || accountable == string.Empty || category == string.Empty || project == string.Empty)
-                throw new AggregateException("Kunde inte lägga till handlingspunkt.");
-
-            else
-            {
-                APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actionDate);
-
-                actionpoints = APP.GetActionPoints();
-
-                description = string.Empty;
-                accountable = string.Empty;
-                category = default;
-                project = string.Empty;
-                selectedStatus = default;
-                actionDate = DateTime.Now;
-            }
-
-        }
-        catch (Exception ex)
-        {
-            @*Tilldelar felmeddelandet*@
-            error = ex.Message;
-        }
+        //Tilldelar felmeddelandet
+        error = ex.Message;
     }
+}
 
-    //void ToggleCheckbox()
-    //{
-    //    if(boolValue)
-    //    {
-    //        val = "unchecked";
-    //    }
-    //    else
-    //    {
-    //        val = "checked";
-    //    }
 
-    //    boolValue = !boolValue;
-    //}
+//void AddAction()
+//{
+//    try
+//    {
+//        if (description == string.Empty || accountable == string.Empty || category == string.Empty || project == string.Empty)
+//            throw new AggregateException("Kunde inte lägga till handlingspunkt.");
 
-    void ChangeStatus()
+//        else
+//        {
+//            APP.AddAction(description, accountable, category, project, ActionPointStatuses.Skapad, actionDate);
+
+//            actionpoints = APP.GetActionPoints();
+
+//            description = string.Empty;
+//            accountable = string.Empty;
+//            category = default;
+//            project = string.Empty;
+//            selectedStatus = default;
+//            actionDate = DateTime.Now;
+//        }
+
+//    }
+//    catch (Exception ex)
+//    {
+//            Tilldelar felmeddelandet
+//            error = ex.Message;
+//        }
+//    }
+
+//void ToggleCheckbox()
+//{
+//    if(boolValue)
+//    {
+//        val = "unchecked";
+//    }
+//    else
+//    {
+//        val = "checked";
+//    }
+
+//    boolValue = !boolValue;
+//}
+
+
+void EscalateAction()
+{
+    try
     {
-        try
-        {
 
 
-        }
-        catch (Exception ex)
-        {
-            @*Tilldelar felmeddelandet*@
-            error = ex.Message;
-        }
     }
-
-    void EscalateAction()
+    catch (Exception ex)
     {
-        try
-        {
-
-
-        }
-        catch (Exception ex)
-        {
-            @*Tilldelar felmeddelandet*@
-            error = ex.Message;
-        }
+        //Tilldelar felmeddelandet
+        error = ex.Message;
     }
+}
 
-    void FileAction()
+void FileAction()
+{
+    try
     {
-        try
-        {
 
 
-        }
-        catch (Exception ex)
-        {
-            @*Tilldelar felmeddelandet*@
-            error = ex.Message;
-        }
     }
-
-    void EraseAction()
+    catch (Exception ex)
     {
-        try
-        {
-
-
-        }
-        catch (Exception ex)
-        {
-            @*Tilldelar felmeddelandet*@
-            error = ex.Message;
-        }
+        //Tilldelar felmeddelandet
+        error = ex.Message;
     }
+}
+
+void DeleteAction()
+{
+    try
+    {
+        //Delete from DB
+        //checkboxStatus.Remove(id)
+        //GetPointsOfAction();
+        //InitCheckboxStatus();
+
+    }
+    catch (Exception ex)
+    {
+        //Tilldelar felmeddelandet
+        error = ex.Message;
+    }
+}
 
 
 }

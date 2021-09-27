@@ -13,7 +13,24 @@ namespace Common.Classes
 {
     public class DataAccess : IDataAccess
     {
-        public List<T> LoadData<T, U>(string sql, U parameters, string connectionString)
+        //public PointOfAction GetPointOfAction(string Description, string Category, string Accountable, string Project, string Status, DateTime ActionDate)
+        //{
+        //    var _oPointsOfAction = new List<PointOfAction>();
+        //    using (IDbConnection con = new SqlConnection("DagligStyrningDB"))
+        //    {
+
+        //        string sql = string.Format(@"SELECT * FROM PointsOfAction", ActionDate.ToString("dd-MMM-yyyy"));
+
+        //        var oPointsOfAction = con.Query<PointOfAction>(sql).ToList();
+
+        //        if (oPointsOfAction != null && oPointsOfAction.Count() > 0)
+        //        {
+        //            _oPointsOfAction = oPointsOfAction;
+        //        }
+        //    }
+
+
+        public List<T> GetPointsOfAction<T, U>(string sql, U parameters, string connectionString)
         {
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
@@ -23,7 +40,7 @@ namespace Common.Classes
             }
         }
 
-        public void SaveData<T>(string sql, T parameters, string connectionString)
+        public void SavePointOfAction<T>(string sql, T parameters, string connectionString)
         {
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
