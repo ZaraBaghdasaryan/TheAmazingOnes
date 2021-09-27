@@ -12,3 +12,45 @@
 .btn:hover {
     opacity: 1
 }
+
+a:hover {
+    background-color: yellow;
+}
+
+
+
+.save-button {
+/*    border-color: #2e851d;*/
+    color: black; /*Text color*/
+    background-color: #7ed957; /*Inside of the box*/
+}
+
+    .save-button:hover {
+        border-color: #43ba0c;
+        color: white;
+      background-color: #008037;
+    }
+
+.close-button {
+/*    border-color: #0f634a;*/
+    color: black; /*Text color*/
+    background-color: #4ac7d4; /*Inside of the box*/
+}
+
+    .close-button:hover {
+        border-color: #0d8890;
+        color: white;
+        background-color: #0a4a6b;
+    }
+
+.delete-button {
+    border-color: #cb2d23;
+    color: black; /*Text color*/
+    background-color: #e23d41; /*Inside of the box*/
+}
+
+    .delete-button:hover {
+        border-color: #ba0a0a;
+        color: white;
+        background-color: #c21515;
+    }
