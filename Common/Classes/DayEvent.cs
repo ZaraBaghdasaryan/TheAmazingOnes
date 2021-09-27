@@ -17,5 +17,6 @@ namespace Common.Classes
         public string DateValue { get; set; }
         public string DayName { get; set; }
         public string Message { get; set; }
+        public string Safety { get; set; }
     }
 }

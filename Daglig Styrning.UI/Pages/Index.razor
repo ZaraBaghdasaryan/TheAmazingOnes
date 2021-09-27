@@ -14,7 +14,7 @@
 @*https://github.com/TheAmazingOnes/HitachiPowerGrids.git*@
 
     @*<button class="btn btn-primary" @onclick="InsertData">Insert</button>*@
-    <button class="btn btn-warning" @onclick="UpdateData">Update</button>
+    @*<button class="btn btn-warning" @onclick="UpdateData">Update</button>
     <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
     @if (pointsOfAction == null)
     {
@@ -28,7 +28,7 @@
                 @p.Description @p.Accountable @p.Status @p.ActionDate
             </p>
         }
-    }
+    }*@
 
 
 <div class="d-flex flex-column justify-content-center align-items-center text-center">
@@ -42,68 +42,15 @@
     </nav>
 </div>
 
-<section id="categories" class="p-4 bg-white">
+<!--<section id="categories" class="p-4 bg-white">-->
      @*p-5 all around padding, instead padding bottom/top or right/left*@ 
-    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+    <!--<div class="d-flex flex-column justify-content-center align-items-center text-center">-->
          @*First centering the container horizontally then vertically*@
 
-        <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
+        <!--<label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
             Säkerhet
             <img src="images/Säkerhet.PNG" class="icon-size mr-2 p-1">
         </label>
-
-        @if (displayModal)
-        {<div id="divModal">
-                <div class="container">
-                    <div class="panel panel-default">
-                        <div class="panel-heading modalHeading">Set Note</div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>From Date : </label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="date" @bind-value="@dayEvent.FromDate" style="width:100%;" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>To Date : </label>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="date" @bind-value="@dayEvent.ToDate" style="width: 100%;" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Note : </label>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="text" @bind-value="@dayEvent.Note" placeholder="Type here..." />
-                            </div>
-                        </div>
-                        <div class="row" style="margin-bottom:10px;">
-                            <div class="col-md-6">
-                            </div>
-                            <div class="col-md-6" style="text-align:right">
-                                <button class="btn btn-success" @onclick="SaveNote" style="float:left; margin-right:5px;">Save</button>
-                                <button class="btn btn-outline-info" @onclick="CloseModal" style="float:left;">Close</button>
-                                @if (dayEvent.DayEventId > 0)
-                                {
-                                    <button class="btn btn-danger" @onclick="DeleteDayEvent" style="float:left;">Delete</button>
-
-                                }
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-
-
 
             <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
                 OK
@@ -116,7 +63,6 @@
                     Åtgärd krävs
                     <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                 </span>
-
             </span>
 
             <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
@@ -131,9 +77,7 @@
                     Kvalitetsproblem
                     <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                 </span>
-
             </span>
-
 
             <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
                 Leverans
@@ -147,7 +91,6 @@
                     Leveransproblem
                     <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
                 </span>
-
 
                 <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
                     Material
@@ -178,8 +121,7 @@
                 </span>
             </span>
         </div>
-
-</section>
+</section>-->
 
 
 
@@ -188,11 +130,11 @@
     <div id="divModal">
         <div class="container">
             <div class="panel panel-default">
-                <div class="panel-heading modalHeading">Set Note</div>
+                <div class="panel-heading modalHeading">Notering</div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <label>From Date : </label>
+                            <label>Från Datum : </label>
                         </div>
                         <div class="col-md-8">
                             <input type="date" @bind-value="@dayEvent.FromDate" style="width:100%;" />
@@ -201,7 +143,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label>To Date : </label>
+                        <label>Till Datum : </label>
                     </div>
                     <div class="col-md-8">
                         <input type="date" @bind-value="@dayEvent.ToDate" style="width: 100%;" />
@@ -209,7 +151,72 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Note : </label>
+                        <label>Säkerhet : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedSafetyOption">
+                            @foreach (var type in GetSafetyOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Kvalitet : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedQualityOption">
+                            @foreach (var type in GetQualityOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Leverans : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedDeliveryOption">
+                            @foreach (var type in GetDeliveryOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Material : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedMaterialOption">
+                            @foreach (var type in GetMaterialOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Ordning & reda : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedTidyOption">
+                            @foreach (var type in GetTidyOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Notering : </label>
                     </div>
                     <div class="col-md-8">
                         <input type="text" @bind-value="@dayEvent.Note" placeholder="Type here..." />
@@ -219,15 +226,15 @@
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6" style="text-align:right">
-                        <button class="btn save-button save-button:hover" @onclick="SaveNote" style="float: left; margin-right: 5px; margin-top: 5px;">Save</button>
-                        <button class="btn close-button close-button:hover" @onclick="CloseModal" style="float: left; margin-top: 5px;">Close</button>
-                            @if (dayEvent.DayEventId > 0)
-                            {
-                                <button class="btn delete-button:hover delete-button" @onclick="DeleteDayEvent" style="float: left; margin-right: 150px; margin-top: 5px; ">Delete</button>
+                        <button class="btn save-button save-button:hover" @onclick="SaveNote" style="float: left; margin-right: 5px; margin-top: 5px;">Spara</button>
+                        <button class="btn close-button close-button:hover" @onclick="CloseModal" style="float: left; margin-top: 5px;">Stäng</button>
+                        @if (dayEvent.DayEventId > 0)
+                        {
+                            <button class="btn delete-button:hover delete-button" @onclick="DeleteDayEvent" style="float: left; margin-right: 150px; margin-top: 5px; ">Ta bort</button>
 
-                            }
-                        </div>
+                        }
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -353,7 +360,7 @@
             </tbody>
             <tr class="thead-light">
                 <th scope="col"></th>
-                <th scope="col"><button class="btn btn-info btn-sm" @onclick="ChangeActionStatus">Påbörja</button></th>
+                <th scope="col"><button class="btn btn-info btn-sm" @onclick="UpdateActionStatus">Påbörja</button></th>
                 <th scope="col"><button class="btn btn-primary btn-sm" @onclick="EscalateAction">Eskalera</button></th>
                 <th scope="col"><button class="btn btn-secondary btn-sm" @onclick="FileAction">Arkivera</button></th>
                 <th scope="col"></th>
@@ -379,6 +386,11 @@
     DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
     int selectedWeekIndex = -1;
     int selectedDayIndex = -1;
+    string selectedSafetyOption = default;
+    string selectedQualityOption = default;
+    string selectedDeliveryOption = default;
+    string selectedMaterialOption = default;
+    string selectedTidyOption = default;
     #endregion
 
     //Handlingsplan
@@ -391,6 +403,7 @@
     string selectedStatus = "Skapad";
     DateTime actionDate = DateTime.Now;
     IEnumerable<IPointOfAction> actionpoints;
+    //int actionId = IPointOfAction.Id;
     #endregion
 
     //DataAccess
@@ -407,14 +420,6 @@
     //    OnInitialized();
     //}
 
-    private void UpdateData()
-    {
-        string sql = "update pointsOfAction set Description = @Description where Accountable = @Accountable";
-
-        _data.SavePointOfAction(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DagligStyrningDB"));
-
-        OnInitialized();
-    }
 
     private void DeleteData()
     {
@@ -494,7 +499,9 @@
             DayEventId = currentObject == null ? 0 : currentObject.DayEventId,
             DateValue = dt.ToString("dd-MMM-yyyy"),
             DayName = dt.ToString("dddd"),
-            Note = currentObject == null ? "" : currentObject.Note
+            Note = currentObject == null ? "" : currentObject.Note,
+            Safety = currentObject == null ? "" : currentObject.Safety
+
         });
 
         if (flag == 7)
@@ -543,6 +550,9 @@ private void SaveNote()
         weeks[selectedWeekIndex].Dates[selectedDayIndex].DayEventId = dayEvent.DayEventId;
         weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
 
+        //Spara SQLMO här?
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Safety = dayEvent.Safety;
+
         ResetModal();
     }
 }
@@ -561,6 +571,34 @@ private void ResetModal()
     selectedDayIndex = -1;
     selectedWeekIndex = -1;
 }
+
+//Dropdown för Set Note
+public List<string> GetSafetyOptions()
+{
+    return Enum.GetNames(typeof(SafetyOptions)).ToList();
+}
+
+public List<string> GetQualityOptions()
+{
+    return Enum.GetNames(typeof(QualityOptions)).ToList();
+}
+
+public List<string> GetDeliveryOptions()
+{
+    return Enum.GetNames(typeof(DeliveryOptions)).ToList();
+}
+
+public List<string> GetMaterialOptions()
+{
+    return Enum.GetNames(typeof(MaterialOptions)).ToList();
+}
+
+public List<string> GetTidyOptions()
+{
+    return Enum.GetNames(typeof(TidyOptions)).ToList();
+}
+
+
 
 //Handlingsplan
 
@@ -593,26 +631,52 @@ private void SaveAction()
     actionDate = DateTime.Now;
 }
 
+void UpdateActionStatus()
+{
+    //if (checkboxStatus = true)
+    //{
+    try
+    {
+        //string sql = "update pointsOfAction set Status = @editStatus where PointOfActionId = @actionId";
+
+        //_data.SavePointOfAction(sql, new { PointOfActionID = @actionId }, _config.GetConnectionString("DagligStyrningDB"));
+
+
+        //GetPointsOfAction();
+        //InitCheckboxStatus();
+
+
+    }
+    catch (Exception ex)
+    {
+        //Tilldelar felmeddelandet
+        error = ex.Message;
+    }
+    //}
+}
+
+//Den längst upp
+private void UpdateData()
+{
+    string sql = "update pointsOfAction set Description = @Description where Accountable = @Accountable";
+
+    _data.SavePointOfAction(sql, new { Description = "Hello Hey", Category = "Q", Accountable = "Lina", Project = "X", Status = "Eskalerad" }, _config.GetConnectionString("DagligStyrningDB"));
+
+    OnInitialized();
+}
+
+
+
+
 //checkbox
 Dictionary<int, bool> checkboxStatus = new Dictionary<int, bool>();
 
 public void InitCheckboxStatus()
 {
-    //checkboxStatus.Add(13, false);
-    //checkboxStatus.Add(14, false);
-    //checkboxStatus.Add(17, false);
-    //checkboxStatus.Add(19, false);
-    //checkboxStatus.Add(21, false);
-    //checkboxStatus.Add(22, false);
-    //checkboxStatus.Add(23, false);
-    //checkboxStatus.Add(24, false);
-    //checkboxStatus.Add(25, false);
-
     foreach (var p in pointsOfAction)
     {
         checkboxStatus.Add(p.PointOfActionId, false);
     }
-
 }
 
 public void ChangeCheckboxStatus(int s)
@@ -628,21 +692,6 @@ public void ChangeCheckboxStatus(int s)
 }
 
 
-void ChangeActionStatus()
-{
-    try
-    {
-        //GetPointsOfAction();
-        //InitCheckboxStatus();
-
-
-    }
-    catch (Exception ex)
-    {
-        //Tilldelar felmeddelandet
-        error = ex.Message;
-    }
-}
 
 
 //void AddAction()
@@ -673,21 +722,6 @@ void ChangeActionStatus()
 //            error = ex.Message;
 //        }
 //    }
-
-//void ToggleCheckbox()
-//{
-//    if(boolValue)
-//    {
-//        val = "unchecked";
-//    }
-//    else
-//    {
-//        val = "checked";
-//    }
-
-//    boolValue = !boolValue;
-//}
-
 
 void EscalateAction()
 {

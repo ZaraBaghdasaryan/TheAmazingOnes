@@ -112,6 +112,7 @@ namespace Common.Classes
                 parameters.Add("@Note", oDayEvent.Note);
                 parameters.Add("@EventDate", oDayEvent.EventDate);
                 parameters.Add("@DayEventId", oDayEvent.DayEventId);
+                parameters.Add("@Safety", oDayEvent.Safety);
 
 
                 using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DagligStyrningDB")))
@@ -124,14 +125,14 @@ namespace Common.Classes
                         q = @"
                         INSERT 
                         INTO   DayEvent(Note, EventDate)
-                        VALUES (@Note,@EventDate); SELECT SCOPE_IDENTITY() ";
+                        VALUES (@Note,@EventDate,@Safety); SELECT SCOPE_IDENTITY() ";
 
                     }
 
                     else
                     {
                         q = @"UPDATE   DayEvent
-                            SET   Note = @Note, EventDate = @EventDate
+                            SET   Note = @Note, EventDate = @EventDate, Safety = @Safety
                             WHERE DayEventId = @DayEventId";
 
                     }
@@ -167,14 +168,16 @@ namespace Common.Classes
 
         private DynamicParameters SetParameters(DayEvent oDayEvent, int operationType)
         {
-            DynamicParameters parametres = new DynamicParameters();
+            DynamicParameters parameters = new DynamicParameters();
 
-            parametres.Add("@DayEventId", oDayEvent.DayEventId);
-            parametres.Add("@Note", oDayEvent.Note);
-            parametres.Add("@EventDate", oDayEvent.EventDate);
-            parametres.Add("@OperationType", operationType);
+            parameters.Add("@DayEventId", oDayEvent.DayEventId);
+            parameters.Add("@Note", oDayEvent.Note);
+            parameters.Add("@EventDate", oDayEvent.EventDate);
+            parameters.Add("@OperationType", operationType);
+            parameters.Add("@Safety", oDayEvent.Safety);
 
-            return parametres;
+
+            return parameters;
 
         }
     }
