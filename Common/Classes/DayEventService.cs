@@ -112,7 +112,7 @@ namespace Common.Classes
                 parameters.Add("@Note", oDayEvent.Note);
                 parameters.Add("@EventDate", oDayEvent.EventDate);
                 parameters.Add("@DayEventId", oDayEvent.DayEventId);
-                parameters.Add("@Safety", oDayEvent.Safety);
+                parameters.Add("@SQLMO_Id", oDayEvent.SQLMO_Id);
 
 
                 using (IDbConnection con = new SqlConnection(Configuration.GetConnectionString("DagligStyrningDB")))
@@ -174,7 +174,8 @@ namespace Common.Classes
             parameters.Add("@Note", oDayEvent.Note);
             parameters.Add("@EventDate", oDayEvent.EventDate);
             parameters.Add("@OperationType", operationType);
-            parameters.Add("@Safety", oDayEvent.Safety);
+            parameters.Add("@SQLMO_Id", oDayEvent.SQLMO);
+            parameters.Add("@Actions_Id", oDayEvent.ActionsOfTheDay);
 
 
             return parameters;

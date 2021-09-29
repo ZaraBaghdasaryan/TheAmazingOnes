@@ -13,8 +13,8 @@
 @inject IConfiguration _config
 @*https://github.com/TheAmazingOnes/HitachiPowerGrids.git*@
 
-    @*<button class="btn btn-primary" @onclick="InsertData">Insert</button>*@
-    @*<button class="btn btn-warning" @onclick="UpdateData">Update</button>
+@*<button class="btn btn-primary" @onclick="InsertData">Insert</button>*@
+@*<button class="btn btn-warning" @onclick="UpdateData">Update</button>
     <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
     @if (pointsOfAction == null)
     {
@@ -32,97 +32,45 @@
 
 
 <div class="d-flex flex-column justify-content-center align-items-center text-center">
-     @*First centering the container horizontally then vertically*@
     <div class="display-6 heading-font heading-font mt-5 mb-1">Daglig styrning</div>
     <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
         <img src="images/SQLMO whole.png">
         <div class="d-none d-md-flex">
-             @*Adjusts visibility with the size of the screen*@
+            @*Adjusts visibility with the size of the screen*@
         </div>
     </nav>
 </div>
 
-<!--<section id="categories" class="p-4 bg-white">-->
-     @*p-5 all around padding, instead padding bottom/top or right/left*@ 
-    <!--<div class="d-flex flex-column justify-content-center align-items-center text-center">-->
-         @*First centering the container horizontally then vertically*@
-
-        <!--<label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-            Säkerhet
-            <img src="images/Säkerhet.PNG" class="icon-size mr-2 p-1">
-        </label>
-
-            <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                OK
-                <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-info">
-                    Tillbud
-                    <img src="images/PinTillbud.PNG" class="icon-size mr-2 p-1">
-                </span>
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                    Åtgärd krävs
-                    <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
-                </span>
-            </span>
-
-            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-                Kvalitet
-                <img src="images/Kvalitet.PNG" class="icon-size mr-2 p-1">
-            </label>
-            <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                OK
-                <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
-
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                    Kvalitetsproblem
-                    <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
-                </span>
-            </span>
-
-            <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center">
-                Leverans
-                <img src="images/Leverans.PNG" class="icon-size mr-2 p-1">
-            </label>
-            <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                OK
-                <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
-
-                <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                    Leveransproblem
-                    <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
-                </span>
-
-                <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
-                    Material
-                    <img src="images/Material.PNG" class="icon-size mr-2 p-1">
-                </label>
-                <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                    OK
-                    <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
-
-                    <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                        Materialproblem
-                        <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
-                    </span>
-
-                    <label class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-black">
-                        Ordning och Reda
-                        <img src="images/OrdningOchReda.PNG" class="icon-size mr-2 p-1">
-                    </label>
-                    <span class="container display-7 heading-font mb-3  flex-row justify-content-center align-items-center text-success">
-                        OK
-                        <img src="images/PinOk.PNG" class="icon-size mr-0 p-1">
-
-                        <span class="container display-7 heading-font mb-3 d-flex flex-row justify-content-center align-items-center text-danger">
-                            Åtgärd krävs
-                            <img src="images/PinInteOk.PNG" class="icon-size mr-2 p-1">
-                        </span>
-                    </span>
-                </span>
-            </span>
+<div class="d-flex flex-column justify-content-center align-items-center text-center">
+    <div class="display-6 heading-font heading-font mt-5 mb-1 thicker">STOP! Take 5</div>
+    <div class="display-8 heading-font heading-font mt-5 mb-1 thick">Stanna upp</div>
+    <div class="display-8 heading-font heading-font mt-5 mb-1 thick">Tänk efter</div>
+    <div class="display-8 heading-font heading-font mt-5 mb-1 thick">Identifiera risker</div>
+    <div class="display-8 heading-font heading-font mt-5 mb-1 thick">Planera arbetet</div>
+    <div class="display-8 heading-font heading-font mt-5 mb-1 thick">Jobba säkert och med hög kvalitet</div>
+    <nav class="d-flex flex-row max-width align-items-center justify-content-center p-1 mx-auto bg-white">
+        <img src="images/StopTakeFive.PNG">
+        <div class="d-none d-md-flex">
+            @*Adjusts visibility with the size of the screen*@
         </div>
-</section>-->
+    </nav>
 
+    <h1 class="thicker"><u>Dagens Åtgärder:</u></h1>
+
+    <form action="/action_page.php">
+        <input type="checkbox" id="Åtgärd1" name="Åtgärd1" value="Åtgärd">
+        <label for="vehicle1" class="thick"> Åtgärd 1</label><br>
+        <input type="checkbox" id="Åtgärd2" name="Åtgärd2" value="Åtgärd">
+        <label for="vehicle2" class="thick"> Åtgärd 2</label><br>
+        <input type="text" class="signature" />
+
+
+        <input type="submit" class="text-success thicker" value="Signera dagen">
+        <input type="submit" class="text-info thicker" value="Ny åtgärd">
+
+    </form>
+
+</div>
 
 
 @if (displayModal)
@@ -154,7 +102,7 @@
                         <label>Säkerhet : </label>
                     </div>
                     <div class="col-md-8">
-                        <select style="height:31px;" @bind="@dayEvent.Safety">
+                        <select style="height:31px;" @bind="@selectedSafetyOption">
                             @foreach (var type in GetSafetyOptions())
                             {
                                 <option value=@type>@type</option>
@@ -162,58 +110,71 @@
                         </select>
                     </div>
                 </div>
-                @*<div class="row">
-            <div class="col-md-4">
-                <label>Kvalitet : </label>
-            </div>
-            <div class="col-md-8">
-                <select style="height:31px;" @bind="@selectedQualityOption">
-                    @foreach (var type in GetQualityOptions())
-                    {
-                        <option value=@type>@type</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <label>Leverans : </label>
-            </div>
-            <div class="col-md-8">
-                <select style="height:31px;" @bind="@selectedDeliveryOption">
-                    @foreach (var type in GetDeliveryOptions())
-                    {
-                        <option value=@type>@type</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <label>Material : </label>
-            </div>
-            <div class="col-md-8">
-                <select style="height:31px;" @bind="@selectedMaterialOption">
-                    @foreach (var type in GetMaterialOptions())
-                    {
-                        <option value=@type>@type</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <label>Ordning & reda : </label>
-            </div>
-            <div class="col-md-8">
-                <select style="height:31px;" @bind="@selectedTidyOption">
-                    @foreach (var type in GetTidyOptions())
-                    {
-                        <option value=@type>@type</option>
-                    }
-                </select>
-            </div>
-        </div>*@
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Kvalitet : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedQualityOption">
+                            @foreach (var type in GetQualityOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Leverans : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedDeliveryOption">
+                            @foreach (var type in GetDeliveryOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Material : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedMaterialOption">
+                            @foreach (var type in GetMaterialOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Ordning & reda : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedTidyOption">
+                            @foreach (var type in GetTidyOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Stop! Take 5 : </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select style="height:31px;" @bind="@selectedActionOfTheDayOption">
+                            @foreach (var type in GetTidyOptions())
+                            {
+                                <option value=@type>@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4">
                         <label>Notering : </label>
@@ -268,24 +229,85 @@
                     var wIndex = weekIndex;
                     var dIndex = dayIndex;
 
+
+                    //Säkerhet
                 <td @onclick="@(() => OpenModal(wIndex, dIndex))">
                     @weeks[weekIndex].Dates[dayIndex].DateValue
                     <br /><br />
-                    @if (weeks[weekIndex].Dates[dayIndex].Safety == "OK")
+                    @if (weeks[weekIndex].Dates[dayIndex].Safety.OK == "OK")
                     {
                         //Få in ID
                         <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:green; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
                     }
-                    else if (weeks[weekIndex].Dates[dayIndex].Safety == "Tillbud")
+                    else if (weeks[weekIndex].Dates[dayIndex].Safety.Incident == "Tillbud")
                     {
                         <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:blue; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
                     }
-                    else
+                    else if (weeks[weekIndex].Dates[dayIndex].Safety.Accident == "Olycka")
                     {
                         <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
                     }
+
+                    //Kvalitet
+                    @if (weeks[weekIndex].Dates[dayIndex].Quality.OK == "OK")
+                    {
+                        //Få in ID
+                        <label style="color:black; font-weight: bold">Kvalitet: </label><label style="color:green; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Quality</label>
+                    }
+
+                    else if (weeks[weekIndex].Dates[dayIndex].Quality.QualityProblem == "Kvalitetproblem")
+                    {
+                        <label style="color:black; font-weight: bold">Kvalitet: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Quality</label>
+                    }
                     <br /><br />
-                    <label style="color:#c00; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Note</label>
+
+                    //Leverans
+                    @if (weeks[weekIndex].Dates[dayIndex].Delivery.OK == "OK")
+                    {
+                        //Få in ID
+                        <label style="color:black; font-weight: bold">Leverans: </label><label style="color:green; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Delivery</label>
+                    }
+
+                    else if (weeks[weekIndex].Dates[dayIndex].Delivery.DeliveryProblem == "Leveransproblem")
+                    {
+                <label style="color:black; font-weight: bold">Leverans: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Delivery</label>
+                    }
+                    <br /><br />
+
+                    //Material
+                    @if (weeks[weekIndex].Dates[dayIndex].Material.OK == "OK")
+                    {
+                        //Få in ID
+                        <label style="color:black; font-weight: bold">Material: </label><label style="color:green; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Material</label>
+                    }
+
+                    else if (weeks[weekIndex].Dates[dayIndex].Material.MaterialProblem == "Materialproblem")
+                    {
+                        <label style="color:black; font-weight: bold">Material: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Material</label>
+                    }
+                    <br /><br />
+
+                    //OrdningOchReda
+                    @if (weeks[weekIndex].Dates[dayIndex].Tidy.OK == "OK")
+                    {
+                        //Få in ID
+                        <label style="color:black; font-weight: bold">Ordning och Reda: </label><label style="color:green; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Tidy</label>
+                    }
+
+                    else if (weeks[weekIndex].Dates[dayIndex].Tidy.ActionRequired == "Åtgärd krävs")
+                    {
+                        <label style="color:black; font-weight: bold">Ordning och Reda: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Tidy</label>
+                    }
+                    <br /><br />
+
+
+
+                    @*else
+        {
+            <label style="color:black; font-weight: bold">Säkerhet: </label><label style="color:red; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label>
+        }
+
+        <label style="color:#c00; font-weight: bold">@weeks[weekIndex].Dates[dayIndex].Safety</label> *@
 
                 </td>
                 }
@@ -346,13 +368,14 @@
                 @foreach (var p in pointsOfAction)
                 {
                     <tr>
-                        <th scope="row"><input type="checkbox" id="checkBox1" @bind="checkboxStatus[p.PointOfActionId]" @onclick="() => ChangeCheckboxStatus(p.PointOfActionId)"/></th>
+                        <th scope="row"><input type="checkbox" id="checkBox1" @bind="checkboxStatus[p.PointOfActionId]" @onclick="() => ChangeCheckboxStatus(p.PointOfActionId)" /></th>
                         <th>@p.Description</th>
                         <th>@p.Category</th>
                         <th>@p.Accountable</th>
                         <th>@p.Project</th>
-                        <th>@p.Status
-                            @*@if (p.Status == "1")
+                        <th>
+                            @p.Status
+                        @*@if (p.Status == "1")
                             {
                                 <span href="#" class="badge badge-success">Skapad</span>
                             }
@@ -364,11 +387,11 @@
                                 {
                                     <span href="#" class="badge badge-warning">Eskalerad</span>
                                 }*@
-                        </th>
-                        <th>@p.ActionDate.ToShortDateString()</th>
-                        <th></th>
-                    </tr>
-                }
+                    </th>
+                    <th>@p.ActionDate.ToShortDateString()</th>
+                    <th></th>
+                </tr>
+            }
             </tbody>
             <tr class="thead-light">
                 <th scope="col"></th>
@@ -382,6 +405,15 @@
             </tr>
         </table>
     </div>
+</div>
+
+
+<div class="container">
+    <form action="/action_page.php">
+        <textarea id="subject" name="subject" placeholder="Skriv handlingsplans beskrivningen här..." style="height:200px"></textarea>
+
+        <input type="submit" value="Skapa">
+    </form>
 </div>
 
 
@@ -402,6 +434,13 @@
     string selectedDeliveryOption = default;
     string selectedMaterialOption = default;
     string selectedTidyOption = default;
+    string selectedSafetyOption = default;
+
+    string selectedActionOfTheDayOption = default;
+
+   
+     
+
     #endregion
 
     //Handlingsplan
@@ -414,7 +453,6 @@
     string selectedStatus = "Skapad";
     DateTime actionDate = DateTime.Now;
     IEnumerable<IPointOfAction> actionpoints;
-    //int actionId = IPointOfAction.Id;
     #endregion
 
     //DataAccess
@@ -511,7 +549,15 @@
             DateValue = dt.ToString("dd-MMM-yyyy"),
             DayName = dt.ToString("dddd"),
             Note = currentObject == null ? "" : currentObject.Note,
-            Safety = currentObject == null ? "" : currentObject.Safety
+            SQLMO_Id = currentObject == null ? 0 : currentObject.SQLMO_Id,
+            Actions_Id = currentObject == null ? 0 : currentObject.Actions_Id,
+
+            Safety_Id = currentObject == null ? 0 : currentObject.Safety_Id,
+            Quality_Id = currentObject == null ? 0 : currentObject.Quality_Id,
+            Delivery_Id = currentObject == null ? 0 : currentObject.Delivery_Id,
+            Material_Id = currentObject == null ? 0 : currentObject.Material_Id,
+            Tidy_Id = currentObject == null ? 0 : currentObject.Tidy_Id
+
 
         });
 
@@ -562,8 +608,14 @@ private void SaveNote()
         weeks[selectedWeekIndex].Dates[selectedDayIndex].Note = dayEvent.Note;
 
         //Spara SQLMO här?
-        weeks[selectedWeekIndex].Dates[selectedDayIndex].Safety = dayEvent.Safety;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].SQLMO = dayEvent.SQLMO;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].ActionsOfTheDay = dayEvent.ActionsOfTheDay;
 
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Safety = dayEvent.Safety;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Quality = dayEvent.Quality;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Delivery = dayEvent.Delivery;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Material = dayEvent.Material;
+        weeks[selectedWeekIndex].Dates[selectedDayIndex].Tidy = dayEvent.Tidy;
 
         ResetModal();
     }
@@ -611,6 +663,11 @@ public List<string> GetTidyOptions()
     return Enum.GetNames(typeof(TidyOptions)).ToList();
 }
 
+public List<string> GetActionOfTheDay()
+{
+    return Enum.GetNames(typeof(ActionsOfTheDayTypes)).ToList();
+}
+
 
 
 //Handlingsplan
@@ -631,7 +688,7 @@ private void SaveAction()
 {
     string sql = "insert into pointsOfAction (Description, Category, Accountable, Project, Status, ActionDate) values (@Description, @Category, @Accountable, @Project, @Status, @ActionDate)";
 
-    _data.SavePointOfAction(sql, new { Description = @description, Category = @category, Accountable = @accountable, Project = @project, Status = @selectedStatus, ActionDate = DateTime.Now}, _config.GetConnectionString("DagligStyrningDB"));
+    _data.SavePointOfAction(sql, new { Description = @description, Category = @category, Accountable = @accountable, Project = @project, Status = @selectedStatus, ActionDate = DateTime.Now }, _config.GetConnectionString("DagligStyrningDB"));
 
     GetPointsOfAction();
     InitCheckboxStatus();
@@ -694,7 +751,7 @@ public void InitCheckboxStatus()
 
 public void ChangeCheckboxStatus(int s)
 {
-    if(checkboxStatus[s] == false)
+    if (checkboxStatus[s] == false)
     {
         checkboxStatus[s] = true;
     }

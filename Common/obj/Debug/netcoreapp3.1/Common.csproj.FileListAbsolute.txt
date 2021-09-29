@@ -38,3 +38,13 @@ C:\Users\lina_\source\repos\HitachiPowerGrids\Common\obj\Debug\netcoreapp3.1\Com
 C:\Users\lina_\source\repos\HitachiPowerGrids\Common\obj\Debug\netcoreapp3.1\Common.dll
 C:\Users\lina_\source\repos\HitachiPowerGrids\Common\obj\Debug\netcoreapp3.1\Common.pdb
 C:\Users\lina_\source\repos\HitachiPowerGrids\Common\obj\Debug\netcoreapp3.1\Common.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\bin\Debug\netcoreapp3.1\Common.deps.json
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.dll
+C:\Users\Admin\OneDrive\Desktop\LIA\Newest version\Common\obj\Debug\netcoreapp3.1\Common.pdb
